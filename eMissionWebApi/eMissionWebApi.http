@@ -1,0 +1,6 @@
+@eMissionWebApi_HostAddress = http://localhost:5120
+
+GET {{eMissionWebApi_HostAddress}}
+Accept: application/json
+
+###
