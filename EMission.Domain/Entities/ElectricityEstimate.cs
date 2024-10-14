@@ -1,7 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using eMissionWebApi.Core.Models.Validators;
 
-namespace eMissionWebApi.Core.Models.Entities
+namespace EMission.Domain.Entities
 {
 	#region documentation
 	/// <summary>
@@ -23,7 +22,7 @@ namespace eMissionWebApi.Core.Models.Entities
 		/// An two-letter ISO country code representing the country the estimate is pertinent to.
 		/// </summary>
 		#endregion
-		[CountryCodeValidator]
+		[Required]
 		public string? CountryCode { get; set; }
 
 		#region documentation
@@ -31,8 +30,7 @@ namespace eMissionWebApi.Core.Models.Entities
 		/// A <c>double</c> representing the electricity consumption in kilowatt-hours (kWh).
 		/// </summary>
 		#endregion
-		[Required(ErrorMessage = $"A value for {nameof(ElectricityValueKwh)} is required.")]
-		[GreaterThanZeroValidator]
+		[Required]
 		public double ElectricityValueKwh { get; set; }
 
 		#region documentation
@@ -40,7 +38,7 @@ namespace eMissionWebApi.Core.Models.Entities
 		/// The date the estimate was requested at.
 		/// </summary>
 		#endregion
-		[Required(ErrorMessage = $"A value for {nameof(EstimatedAt)} is required.")]
+		[Required]
 		public DateTime EstimatedAt { get; set; }
 
 		#region documentation
@@ -48,8 +46,7 @@ namespace eMissionWebApi.Core.Models.Entities
 		/// An <c>int</c> representing the estimated carbon emissions in grams (g).
 		/// </summary>
 		#endregion
-		[Required(ErrorMessage = $"A value for {nameof(CarbonEmissionsGrams)} is required.")]
-		[GreaterThanZeroValidator]
+		[Required]
 		public int CarbonEmissionsGrams { get; set; }
 	}
 }

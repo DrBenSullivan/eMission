@@ -1,4 +1,4 @@
-﻿namespace eMissionWebApi.Core.Extensions
+﻿namespace EMission.Api.Extensions
 {
 	#region documentation
 	/// <summary>
