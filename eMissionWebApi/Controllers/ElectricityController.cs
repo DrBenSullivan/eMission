@@ -1,66 +1,57 @@
 ﻿using EMission.Api.Models.DTOs;
+using EMission.Application.Interfaces.ServiceInterfaces;
 using Microsoft.AspNetCore.Mvc;
 
 namespace EMission.Api.Controllers
 {
-    #region documentation
-    /// <summary>
-    /// Controller for requesting electricity estimates.
-    /// </summary>
-    #endregion
-    [Route("api/[controller]")]
-    [ApiController]
-    public class ElectricityController : ControllerBase
-    {
-        #region private readonly fields
-        private readonly string _route;
-        private readonly HttpClient _httpClient;
-        #endregion
+	#region documentation
+	/// <summary>
+	/// Controller for requesting electricity estimates.
+	/// </summary>
+	#endregion
+	[Route("api/[controller]")]
+	[ApiController]
+	public class ElectricityController : ControllerBase
+	{
+		#region private readonly fields
+		private readonly IElectricityService _electricityService;
+		#endregion
 
-        #region constructor
-        /// <summary>
-        /// Creates an instance of <see cref="ElectricityController" /> class.
-        /// </summary>
-        /// <param name="httpClientFactory">The injected <see cref="IHttpClientFactory" />.</param>
-        public ElectricityController(IHttpClientFactory httpClientFactory)
-        {
-            _httpClient = httpClientFactory.CreateClient("CarbonInterfaceApiClient");
-            _route = "estimates";
-        }
-        #endregion
+		#region constructor
+		/// <summary>
+		/// Creates an instance of <see cref="ElectricityController"/>
+		/// </summary>
+		/// <param name="electricityService"></param>
+		public ElectricityController(IElectricityService electricityService)
+		{
+			_electricityService = electricityService;
+		}
+		#endregion
 
-        #region documentation
-        /// <summary>
-        /// An action method for requesting a new carbon emissions estimate from a given electricity consumption.
-        /// </summary>
-        /// <param name="request">An <see cref="ElectricityEstimateRequest"/>.</param>
-        /// <returns><see cref="Task"/> with a result of type <see cref="IActionResult"/>.</returns>
-        #endregion
-        [HttpPost]
-        [Route("/")]
-        public async Task<IActionResult> GetEstimate([Bind] ElectricityEstimateRequest request)
-        {
-            if (!ModelState.IsValid)
-            {
-                var errors = ModelState.Values
-                        .SelectMany(val => val.Errors)
-                        .Select(err => err.ErrorMessage);
+		#region documentation
+		/// <summary>
+		/// Requests a new carbon emissions estimate using a given electricity consumption.
+		/// </summary>
+		/// <param name="requestDto">An <see cref="ElectricityEstimateRequestDto"/>.</param>
+		/// <returns><see cref="Task"/> with a result of type <see cref="IActionResult"/>.</returns>
+		#endregion
+		[HttpPost]
+		[Route("/")]
+		public async Task<IActionResult> GetEstimate([Bind] ElectricityEstimateRequestDto requestDto)
+		{
+			if (!ModelState.IsValid)
+			{
+				var errors = ModelState.Values
+						.SelectMany(val => val.Errors)
+						.Select(err => err.ErrorMessage);
 
-                return BadRequest(errors);
-            }
+				throw new BadHttpRequestException($"Invalid {nameof(ElectricityEstimateRequestDto)} provided in {nameof(GetEstimate)} action method. Validation Errors: {errors}.");
+			}
 
-            var httpContent = request.ToCarbonInterfaceRequestContent();
-            var response = await _httpClient.PostAsync(_route, httpContent);
-
-            if (response.IsSuccessStatusCode)
-            {
-                var responseData = response.Content.ReadAsStringAsync().Result;
-                return Ok(responseData);
-            }
-            else
-            {
-                return StatusCode((int)response.StatusCode, response.Content.ReadAsStringAsync());
-            }
-        }
-    }
+			var request = requestDto.ToElectricityEstimateRequest();
+			var response = await _electricityService.GetElectricityEstimateAsync(request);
+			var electricityEstimateResponseDto = response.ToElectricityEstimateResponseDto();
+			return Ok(electricityEstimateResponseDto);
+		}
+	}
 }

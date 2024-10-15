@@ -2,12 +2,7 @@ using EMission.Api.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.AddExternalApiClients();
-
-builder.Services.AddControllers();
-
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+builder.ConfigureServices();
 
 var app = builder.Build();
 
