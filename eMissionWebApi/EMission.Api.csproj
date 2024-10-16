@@ -6,6 +6,7 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <UserSecretsId>04394b47-becf-40ac-afcd-9b4c9b4858c0</UserSecretsId>
     <GenerateDocumentationFile>True</GenerateDocumentationFile>
+    <DocumentationFile>api.xml</DocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>

@@ -17,8 +17,10 @@ namespace EMission.Api.Extensions
 		internal static WebApplicationBuilder ConfigureServices(this WebApplicationBuilder builder)
 		{
 			builder.Services.AddEndpointsApiExplorer();
-			builder.Services.AddSwaggerGen();
-
+			builder.Services.AddSwaggerGen(options =>
+			{
+				options.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, "api.xml"));
+			});
 			builder.AddExternalApiClients();
 
 			builder.Services.AddControllers();

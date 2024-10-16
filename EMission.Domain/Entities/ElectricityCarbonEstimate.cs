@@ -7,7 +7,7 @@ namespace EMission.Domain.Entities
 	/// A core entity representing an electricity request.
 	/// </summary>
 	#endregion
-	public class ElectricityEstimate
+	public class ElectricityCarbonEstimate
 	{
 		#region documentation
 		/// <summary>

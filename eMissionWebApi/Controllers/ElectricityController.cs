@@ -36,7 +36,6 @@ namespace EMission.Api.Controllers
 		/// <returns><see cref="Task"/> with a result of type <see cref="IActionResult"/>.</returns>
 		#endregion
 		[HttpPost]
-		[Route("/")]
 		public async Task<IActionResult> GetCarbonEmissionEstimate([Bind] ElectricityEstimateRequestDto requestDto)
 		{
 			if (!ModelState.IsValid)
