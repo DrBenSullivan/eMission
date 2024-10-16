@@ -1,6 +1,8 @@
 ﻿using EMission.Application.Interfaces.ExternalApiClientInterfaces;
 using EMission.Application.Interfaces.ServiceInterfaces;
+using EMission.Application.Interfaces.ServiceInterfaces.OctopusServiceInterfaces;
 using EMission.Application.Services;
+using EMission.Application.Services.Octopus;
 using EMission.Infrastructure.ExternalApiClients;
 
 namespace EMission.Api.Extensions
@@ -24,8 +26,12 @@ namespace EMission.Api.Extensions
 			builder.AddExternalApiClients();
 
 			builder.Services.AddControllers();
+
 			builder.Services.AddTransient<IElectricityService, ElectricityService>();
 			builder.Services.AddTransient<IElectricityEstimatesApiClient, ElectricityEstimatesApiClient>();
+
+			builder.Services.AddTransient<IOctopusElectricityService, OctopusElectricityService>();
+
 			return builder;
 		}
 

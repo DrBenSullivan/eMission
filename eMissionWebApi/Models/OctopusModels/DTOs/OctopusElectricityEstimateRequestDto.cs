@@ -1,9 +1,8 @@
 ﻿using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using EMission.Api.Models.Validators;
-using EMission.Application.Models;
 
-namespace EMission.Api.Models.DTOs
+namespace EMission.Api.Models.OctopusModels.DTOs
 {
 	#region documentation
 	/// <summary>
@@ -28,7 +27,7 @@ namespace EMission.Api.Models.DTOs
 		#endregion
 		[DisplayName("'Octopus API Key'")]
 		[RequiredValidator]
-		public string APIKey { get; set;} = string.Empty;
+		public string APIKey { get; set; } = string.Empty;
 
 		#region documentation
 		/// <summary>
@@ -41,7 +40,7 @@ namespace EMission.Api.Models.DTOs
 		[DisplayName("'Meter Point Administration Number'")]
 		[RequiredValidator]
 		[RegularExpression("^[0-9]{9}$", ErrorMessage = "")]
-		public string MPAN { get; set; }  = string.Empty;
+		public string MPAN { get; set; } = string.Empty;
 
 		#region documentation
 		/// <summary>
@@ -80,7 +79,7 @@ namespace EMission.Api.Models.DTOs
 		/// <param name="dto">The <see cref="OctopusElectricityEstimateRequestDto" /> to be transformed.</param>
 		/// <returns>The generated <see cref="OctopusElectricityEstimateRequest"/>.</returns>
 		#endregion
-		private static OctopusElectricityEstimateRequest ToOctopusElectricityEstimateRequest(this OctopusElectricityEstimateRequestDto dto) => new()
+		internal static OctopusElectricityEstimateRequest ToOctopusElectricityEstimateRequest(this OctopusElectricityEstimateRequestDto dto) => new()
 		{
 			APIKey = dto.APIKey,
 			MPAN = int.Parse(dto.MPAN),

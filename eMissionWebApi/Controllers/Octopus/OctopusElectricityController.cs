@@ -1,7 +1,8 @@
-﻿using EMission.Api.Models.DTOs;
+﻿using EMission.Api.Models.OctopusModels.DTOs;
+using EMission.Application.Interfaces.ServiceInterfaces.OctopusServiceInterfaces;
 using Microsoft.AspNetCore.Mvc;
 
-namespace EMission.Api.Controllers.OctopusControllers
+namespace EMission.Api.Controllers.Octopus
 {
 	#region documentation
 	/// <summary>
@@ -17,9 +18,18 @@ namespace EMission.Api.Controllers.OctopusControllers
 	public class OctopusElectricityController : ControllerBase
 	{
 		#region private readonly fields
+		private readonly IOctopusElectricityService _octopusElectricityService;
 		#endregion
 
 		#region constructor
+		/// <summary>
+		/// Creates an instance of <see cref="OctopusElectricityController"/>
+		/// </summary>
+		/// <param name="octopusElectricityService"></param>
+		public OctopusElectricityController(IOctopusElectricityService octopusElectricityService)
+		{
+			_octopusElectricityService = octopusElectricityService;
+		}
 		#endregion
 
 		#region documentation
@@ -42,7 +52,7 @@ namespace EMission.Api.Controllers.OctopusControllers
 						.SelectMany(val => val.Errors)
 						.Select(err => err.ErrorMessage);
 
-				throw new BadHttpRequestException($"Invalid {nameof(ElectricityEstimateRequestDto)} provided in {nameof(GetCarbonEmissionEstimate)} action method. Validation Errors: {errors}.");
+				throw new BadHttpRequestException($"Invalid {nameof(OctopusElectricityEstimateRequestDto)} provided in {nameof(GetOctopusElectricityCarbonEmissionsEstimate)} action method. Validation Errors: {errors}.");
 			}
 
 			var request = requestDto.ToOctopusElectricityEstimateRequest();
