@@ -1,5 +1,4 @@
-﻿using System.Text.Json.Serialization;
-using EMission.Domain.Enums;
+﻿using EMission.Domain.Enums;
 
 namespace EMission.Application.Models
 {

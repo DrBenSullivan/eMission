@@ -1,6 +1,4 @@
-﻿using System.ComponentModel;
-using EMission.Api.Models.Validators;
-using EMission.Application.Models;
+﻿using EMission.Application.Models;
 using EMission.Domain.Enums;
 
 namespace EMission.Api.Models.DTOs
@@ -32,6 +30,20 @@ namespace EMission.Api.Models.DTOs
 		/// </summary>
 		#endregion
 		public string CountryCode { get; set; } = string.Empty;
+
+		#region documentation
+		/// <summary>
+		/// The <see cref="DateTime"/> the request was processed at.
+		/// </summary>
+		#endregion
+		public DateTime EstimatedAt { get; set; }
+
+		#region documentation
+		/// <summary>
+		/// An <c>int</c> representing the estimated Carbon emissions in grams (g).
+		/// </summary>
+		#endregion
+		public int CarbonEmissionsGrams { get; set; }
 	}
 
 	#region documentation
@@ -52,7 +64,10 @@ namespace EMission.Api.Models.DTOs
 		{
 			ElectricalUnits = response.ElectricityUnit.ToString(),
 			ElectricityValue = response.ElectricityValue,
-			CountryCode = response.CountryCode
+			CountryCode = response.CountryCode,
+			EstimatedAt = response.EstimatedAt,
+			CarbonEmissionsGrams = response.CarbonEmissionsGrams,
+
 		};
 	}
 }

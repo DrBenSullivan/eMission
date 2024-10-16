@@ -1,6 +1,4 @@
-﻿using System.Runtime.Serialization;
-
-namespace EMission.Application.Exceptions
+﻿namespace EMission.Application.Exceptions
 {
 	public class ElectricityEstimatesApiClientException : Exception
 	{

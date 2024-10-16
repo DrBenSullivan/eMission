@@ -41,7 +41,7 @@ namespace EMission.Infrastructure.Models
 					CarbonEmissionsGrams = dto.CarbonEmissionsGrams
 				};
 			}
-			
+
 			throw new ArgumentException($"Value '{dto.ElectricityUnit}' is invalid for {nameof(ElectricityEstimateResponse.ElectricityUnit)}");
 		}
 	}

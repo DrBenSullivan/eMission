@@ -37,7 +37,7 @@ namespace EMission.Api.Controllers
 		#endregion
 		[HttpPost]
 		[Route("/")]
-		public async Task<IActionResult> GetEstimate([Bind] ElectricityEstimateRequestDto requestDto)
+		public async Task<IActionResult> GetCarbonEmissionEstimate([Bind] ElectricityEstimateRequestDto requestDto)
 		{
 			if (!ModelState.IsValid)
 			{
@@ -45,7 +45,7 @@ namespace EMission.Api.Controllers
 						.SelectMany(val => val.Errors)
 						.Select(err => err.ErrorMessage);
 
-				throw new BadHttpRequestException($"Invalid {nameof(ElectricityEstimateRequestDto)} provided in {nameof(GetEstimate)} action method. Validation Errors: {errors}.");
+				throw new BadHttpRequestException($"Invalid {nameof(ElectricityEstimateRequestDto)} provided in {nameof(GetCarbonEmissionEstimate)} action method. Validation Errors: {errors}.");
 			}
 
 			var request = requestDto.ToElectricityEstimateRequest();

@@ -33,41 +33,41 @@ namespace EMission.Infrastructure.ExternalApiClients
 		/// <inheritdoc />
 		#endregion
 		public async Task<ElectricityEstimateResponse> GetElectricityEstimateAsync(ElectricityEstimateRequest request)
-        {
-            var requestStringContent = request.ToStringContent();
-            HttpResponseMessage response;
+		{
+			var requestStringContent = request.ToStringContent();
+			HttpResponseMessage response;
 
-            try
-            {
-                response = await _httpClient.PostAsync(_endpoint, requestStringContent);
-            }
-            catch (TaskCanceledException ex) when (ex.CancellationToken.IsCancellationRequested)
-            {
-                throw new ElectricityEstimatesApiClientException("The request was cancelled by the user.", ex);
-            }
-            catch (TaskCanceledException ex)
-            {
-                throw new ElectricityEstimatesApiClientException("The request timed out. Please try again later.", ex);
-            }
-            catch (HttpRequestException ex)
-            {
-                throw new ElectricityEstimatesApiClientException("An error occurred while sending the HTTP request.", ex);
-            }
+			try
+			{
+				response = await _httpClient.PostAsync(_endpoint, requestStringContent);
+			}
+			catch (TaskCanceledException ex) when (ex.CancellationToken.IsCancellationRequested)
+			{
+				throw new ElectricityEstimatesApiClientException("The request was cancelled by the user.", ex);
+			}
+			catch (TaskCanceledException ex)
+			{
+				throw new ElectricityEstimatesApiClientException("The request timed out. Please try again later.", ex);
+			}
+			catch (HttpRequestException ex)
+			{
+				throw new ElectricityEstimatesApiClientException("An error occurred while sending the HTTP request.", ex);
+			}
 
-            var message = await response.Content.ReadAsStringAsync();
+			var message = await response.Content.ReadAsStringAsync();
 
-            if (!response.IsSuccessStatusCode)
-            {
-                throw new ElectricityEstimatesApiClientException($"Request failed with status code {response.StatusCode}. Error: {message}");
-            }
+			if (!response.IsSuccessStatusCode)
+			{
+				throw new ElectricityEstimatesApiClientException($"Request failed with status code {response.StatusCode}. Error: {message}");
+			}
 
-            var responseMessageJson = JsonDocument.Parse(message);
-            var responseAttributes = responseMessageJson.RootElement.GetProperty("data").GetProperty("attributes");
+			var responseMessageJson = JsonDocument.Parse(message);
+			var responseAttributes = responseMessageJson.RootElement.GetProperty("data").GetProperty("attributes");
 
-            var responseDto = JsonSerializer.Deserialize<ElectricityAPIResponseDto>(responseAttributes)
-                ?? throw new ElectricityEstimatesApiClientException($"Failed to parse the response from the external API. Response: {message}");
+			var responseDto = JsonSerializer.Deserialize<ElectricityAPIResponseDto>(responseAttributes)
+				?? throw new ElectricityEstimatesApiClientException($"Failed to parse the response from the external API. Response: {message}");
 
-            return responseDto.ToElectricityEstimateResponse();
-        }
+			return responseDto.ToElectricityEstimateResponse();
+		}
 	}
 }

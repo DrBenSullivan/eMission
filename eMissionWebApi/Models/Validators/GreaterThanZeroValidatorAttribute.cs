@@ -23,7 +23,7 @@ namespace EMission.Api.Models.Validators
 				case decimal decimalValue when decimalValue > 0:
 					return ValidationResult.Success;
 
-				default: 
+				default:
 					return new ValidationResult($"'{value}' is an invalid value for {validationContext.DisplayName}. It must be greater than zero.");
 			}
 		}
