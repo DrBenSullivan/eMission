@@ -53,14 +53,14 @@ namespace EMission.Api.Models.DTOs
 		/// <summary>
 		/// Transforms an <see cref="ElectricityEstimateRequestDto" /> into an <see cref="ElectricityEstimateRequest"/> for consumption by the application layer.
 		/// </summary>
-		/// <param name="requestDto">The <see cref="ElectricityEstimateRequestDto" /> to be transformed.</param>
+		/// <param name="dto">The <see cref="ElectricityEstimateRequestDto" /> to be transformed.</param>
 		/// <returns>The generated <see cref="ElectricityEstimateRequest"/>.</returns>
 		#endregion
-		public static ElectricityEstimateRequest ToElectricityEstimateRequest(this ElectricityEstimateRequestDto requestDto) => new()
+		private static ElectricityEstimateRequest ToElectricityEstimateRequest(this ElectricityEstimateRequestDto dto) => new()
 		{
-			ElectricalUnits = (ElectricalUnit)Enum.Parse(typeof(ElectricalUnit), requestDto.ElectricalUnits, true),
-			TotalUnits = requestDto.ElectricityValue,
-			CountryCode = requestDto.CountryCode
+			ElectricalUnits = (ElectricalUnit)Enum.Parse(typeof(ElectricalUnit), dto.ElectricalUnits, true),
+			TotalUnits = dto.ElectricityValue,
+			CountryCode = dto.CountryCode
 		};
 	}
 }

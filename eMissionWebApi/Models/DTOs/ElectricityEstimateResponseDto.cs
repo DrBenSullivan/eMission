@@ -5,7 +5,7 @@ namespace EMission.Api.Models.DTOs
 {
 	#region documentation
 	/// <summary>
-	/// A DTO representing a response to a request for an electricity carbon emissions estimate.
+	/// A DTO representing a dto to a request for an electricity carbon emissions estimate.
 	/// </summary>
 	#endregion
 	public class ElectricityEstimateResponseDto
@@ -57,16 +57,16 @@ namespace EMission.Api.Models.DTOs
 		/// <summary>
 		/// Transforms an <see cref="ElectricityEstimateResponse" /> from the application layer into an <see cref="ElectricityEstimateResponseDto"/> for Web API use.
 		/// </summary>
-		/// <param name="response">The <see cref="ElectricityEstimateResponse" /> to be transformed.</param>
+		/// <param name="dto">The <see cref="ElectricityEstimateResponse" /> to be transformed.</param>
 		/// <returns>The generated <see cref="ElectricityEstimateResponseDto"/>.</returns>
 		#endregion
-		public static ElectricityEstimateResponseDto ToElectricityEstimateResponseDto(this ElectricityEstimateResponse response) => new()
+		public static ElectricityEstimateResponseDto ToElectricityEstimateResponseDto(this ElectricityEstimateResponse dto) => new()
 		{
-			ElectricalUnits = response.ElectricityUnit.ToString(),
-			ElectricityValue = response.ElectricityValue,
-			CountryCode = response.CountryCode,
-			EstimatedAt = response.EstimatedAt,
-			CarbonEmissionsGrams = response.CarbonEmissionsGrams,
+			ElectricalUnits = dto.ElectricityUnit.ToString(),
+			ElectricityValue = dto.ElectricityValue,
+			CountryCode = dto.CountryCode,
+			EstimatedAt = dto.EstimatedAt,
+			CarbonEmissionsGrams = dto.CarbonEmissionsGrams,
 
 		};
 	}

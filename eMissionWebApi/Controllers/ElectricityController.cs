@@ -6,7 +6,7 @@ namespace EMission.Api.Controllers
 {
 	#region documentation
 	/// <summary>
-	/// Controller for requesting electricity estimates.
+	/// Controller for requesting carbon emission estimates from electricity consumption.
 	/// </summary>
 	#endregion
 	[Route("api/[controller]")]
@@ -36,6 +36,7 @@ namespace EMission.Api.Controllers
 		/// <returns><see cref="Task"/> with a result of type <see cref="IActionResult"/>.</returns>
 		#endregion
 		[HttpPost]
+		[ProducesResponseType(typeof(ElectricityEstimateResponseDto), 200)]
 		public async Task<IActionResult> GetCarbonEmissionEstimate([Bind] ElectricityEstimateRequestDto requestDto)
 		{
 			if (!ModelState.IsValid)
