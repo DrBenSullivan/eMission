@@ -4,22 +4,22 @@
         <name>EMission.Api</name>
     </assembly>
     <members>
-        <member name="T:EMission.Api.Controllers.ElectricityController">
+        <member name="T:EMission.Api.Controllers.ElectricityEmissionsController">
             <summary>
-            Controller for requesting electricity estimates.
+            Controller for requesting carbon emission estimates from electricity consumption.
             </summary>
         </member>
-        <member name="M:EMission.Api.Controllers.ElectricityController.#ctor(EMission.Application.Interfaces.ServiceInterfaces.IElectricityService)">
+        <member name="M:EMission.Api.Controllers.ElectricityEmissionsController.#ctor(EMission.Application.Interfaces.ServiceInterfaces.ICarbonInterfaceElectricityEmissionsEstimateService)">
             <summary>
-            Creates an instance of <see cref="T:EMission.Api.Controllers.ElectricityController"/>
+            Creates an instance of <see cref="T:EMission.Api.Controllers.ElectricityEmissionsController"/>
             </summary>
-            <param name="electricityService"></param>
+            <param name="carbonInterfaceElectricityEmissionsEstimateService"></param>
         </member>
-        <member name="M:EMission.Api.Controllers.ElectricityController.GetCarbonEmissionEstimate(EMission.Api.Models.DTOs.ElectricityEstimateRequestDto)">
+        <member name="M:EMission.Api.Controllers.ElectricityEmissionsController.GetEstimate(EMission.Api.Models.DTOs.CarbonInterfaceElectricityEmissionsEstimateRequestDto)">
             <summary>
             Requests a new carbon emissions estimate using a given electricity consumption.
             </summary>
-            <param name="requestDto">An <see cref="T:EMission.Api.Models.DTOs.ElectricityEstimateRequestDto"/>.</param>
+            <param name="requestDto">An <see cref="T:EMission.Api.Models.DTOs.CarbonInterfaceElectricityEmissionsEstimateRequestDto"/>.</param>
             <returns><see cref="T:System.Threading.Tasks.Task"/> with a result of type <see cref="T:Microsoft.AspNetCore.Mvc.IActionResult"/>.</returns>
         </member>
         <member name="M:EMission.Api.Extensions.WebApplicationBuilderExtensions.ConfigureServices(Microsoft.AspNetCore.Builder.WebApplicationBuilder)">
@@ -29,85 +29,107 @@
             <param name="builder">The instance of <see cref="T:Microsoft.AspNetCore.Builder.WebApplicationBuilder"/>.</param>
             <returns>The <see cref="T:Microsoft.AspNetCore.Builder.WebApplicationBuilder"/> with added services.</returns>
         </member>
-        <member name="M:EMission.Api.Extensions.WebApplicationBuilderExtensions.AddExternalApiClients(Microsoft.AspNetCore.Builder.WebApplicationBuilder)">
+        <member name="M:EMission.Api.Extensions.WebApplicationBuilderExtensions.AddCarbonInterfaceExternalApiClientFactory(Microsoft.AspNetCore.Builder.WebApplicationBuilder)">
             <summary>
-            Adds all necessary HttpClients to the IoC container for the application's external API calls.
+            Adds the Carbon Interface External API Client Factory to the IoC container.
             </summary>
             <exception cref="T:System.ApplicationException">Thrown if the <c>CarbonInterfaceApiBaseUri</c> is not present in <c>applicationsettings.json</c>.</exception>
         </member>
-        <member name="T:EMission.Api.Models.DTOs.ElectricityEstimateRequestDto">
+        <member name="M:EMission.Api.Extensions.WebApplicationBuilderExtensions.AddGenericHttpClientFactory(Microsoft.AspNetCore.Builder.WebApplicationBuilder)">
+            <summary>
+            Adds Generic Http Client Factory for open configuration to the IoC container.
+            </summary>
+        </member>
+        <member name="T:EMission.Api.Interfaces.IPlugin">
+            <summary>
+            Interface to assist in independent development of Plugins for other Energy Providers.
+            <para>
+            See <see cref="T:EMission.Api.Plugins.Octopus.OctopusPlugin"/> for implementation.
+            </para>
+            </summary>
+        </member>
+        <member name="M:EMission.Api.Interfaces.IPlugin.ConfigureServices(Microsoft.AspNetCore.Builder.WebApplicationBuilder)">
+            <summary>
+            Adds Plugin services to the IoC container.
+            <para>
+            See <see cref="T:EMission.Api.Plugins.Octopus.OctopusPlugin" /> for implementation.
+            </para>
+            </summary>
+            <param name="builder"></param>
+        </member>
+        <member name="T:EMission.Api.Models.DTOs.CarbonInterfaceElectricityEmissionsEstimateRequestDto">
             <summary>
             A DTO representing a received request for an electricity carbon emissions estimate.
             </summary>
         </member>
-        <member name="P:EMission.Api.Models.DTOs.ElectricityEstimateRequestDto.ElectricalUnits">
+        <member name="P:EMission.Api.Models.DTOs.CarbonInterfaceElectricityEmissionsEstimateRequestDto.ElectricalUnits">
             <summary>
             A string representing the <see cref="T:EMission.Domain.Enums.ElectricalUnit"/> <c>enum</c>.
             </summary>
         </member>
-        <member name="P:EMission.Api.Models.DTOs.ElectricityEstimateRequestDto.ElectricityValue">
+        <member name="P:EMission.Api.Models.DTOs.CarbonInterfaceElectricityEmissionsEstimateRequestDto.ElectricityValue">
             <summary>
-            A <c>double</c> representing the number of <see cref="P:EMission.Api.Models.DTOs.ElectricityEstimateRequestDto.ElectricalUnits"/> used.
+            A <c>double</c> representing the number of <see cref="P:EMission.Api.Models.DTOs.CarbonInterfaceElectricityEmissionsEstimateRequestDto.ElectricalUnits"/> used.
             </summary>
         </member>
-        <member name="P:EMission.Api.Models.DTOs.ElectricityEstimateRequestDto.CountryCode">
+        <member name="P:EMission.Api.Models.DTOs.CarbonInterfaceElectricityEmissionsEstimateRequestDto.CountryCode">
             <summary>
             A two-letter ISO country code representing the country that the request is pertinent to.
             </summary>
         </member>
         <member name="T:EMission.Api.Models.DTOs.ElectricityEstimateRequestDtoExtensions">
             <summary>
-            Extension class for <see cref="T:EMission.Api.Models.DTOs.ElectricityEstimateRequestDto" />.
+            Extension class for <see cref="T:EMission.Api.Models.DTOs.CarbonInterfaceElectricityEmissionsEstimateRequestDto" />.
             </summary>
         </member>
-        <member name="M:EMission.Api.Models.DTOs.ElectricityEstimateRequestDtoExtensions.ToElectricityEstimateRequest(EMission.Api.Models.DTOs.ElectricityEstimateRequestDto)">
+        <member name="M:EMission.Api.Models.DTOs.ElectricityEstimateRequestDtoExtensions.ToCarbonInterfaceElectricityEmissionsEstimateRequest(EMission.Api.Models.DTOs.CarbonInterfaceElectricityEmissionsEstimateRequestDto)">
             <summary>
-            Transforms an <see cref="T:EMission.Api.Models.DTOs.ElectricityEstimateRequestDto" /> into an <see cref="T:EMission.Application.Models.ElectricityEstimateRequest"/> for consumption by the application layer.
+            Transforms an <see cref="T:EMission.Api.Models.DTOs.CarbonInterfaceElectricityEmissionsEstimateRequestDto" /> into an <see cref="T:EMission.Application.Models.CarbonInterfaceElectricityEmissionsEstimateRequest"/> for consumption by the application layer.
             </summary>
-            <param name="requestDto">The <see cref="T:EMission.Api.Models.DTOs.ElectricityEstimateRequestDto" /> to be transformed.</param>
-            <returns>The generated <see cref="T:EMission.Application.Models.ElectricityEstimateRequest"/>.</returns>
+            <param name="dto">The <see cref="T:EMission.Api.Models.DTOs.CarbonInterfaceElectricityEmissionsEstimateRequestDto" /> to be transformed.</param>
+            <returns>The generated <see cref="T:EMission.Application.Models.CarbonInterfaceElectricityEmissionsEstimateRequest"/>.</returns>
         </member>
-        <member name="T:EMission.Api.Models.DTOs.ElectricityEstimateResponseDto">
+        <member name="T:EMission.Api.Models.DTOs.CarbonInterfaceElectricityEmissionsEstimateResponseDto">
             <summary>
-            A DTO representing a response to a request for an electricity carbon emissions estimate.
+            A DTO representing a dto to a request for an electricity carbon emissions estimate.
             </summary>
         </member>
-        <member name="P:EMission.Api.Models.DTOs.ElectricityEstimateResponseDto.ElectricalUnits">
+        <member name="P:EMission.Api.Models.DTOs.CarbonInterfaceElectricityEmissionsEstimateResponseDto.ElectricalUnits">
             <summary>
             A string representing the <see cref="T:EMission.Domain.Enums.ElectricalUnit"/> enum.
             </summary>
         </member>
-        <member name="P:EMission.Api.Models.DTOs.ElectricityEstimateResponseDto.ElectricityValue">
+        <member name="P:EMission.Api.Models.DTOs.CarbonInterfaceElectricityEmissionsEstimateResponseDto.ElectricityValue">
             <summary>
-            A <c>double</c> representing the number of <see cref="P:EMission.Api.Models.DTOs.ElectricityEstimateResponseDto.ElectricalUnits"/> used.
+            A <c>double</c> representing the number of <see cref="P:EMission.Api.Models.DTOs.CarbonInterfaceElectricityEmissionsEstimateResponseDto.ElectricalUnits"/> used.
             </summary>
         </member>
-        <member name="P:EMission.Api.Models.DTOs.ElectricityEstimateResponseDto.CountryCode">
+        <member name="P:EMission.Api.Models.DTOs.CarbonInterfaceElectricityEmissionsEstimateResponseDto.CountryCode">
             <summary>
             A two-letter ISO country code representing the country that the request is pertinent to.
             </summary>
         </member>
-        <member name="P:EMission.Api.Models.DTOs.ElectricityEstimateResponseDto.EstimatedAt">
+        <member name="P:EMission.Api.Models.DTOs.CarbonInterfaceElectricityEmissionsEstimateResponseDto.EstimatedAt">
             <summary>
             The <see cref="T:System.DateTime"/> the request was processed at.
             </summary>
         </member>
-        <member name="P:EMission.Api.Models.DTOs.ElectricityEstimateResponseDto.CarbonEmissionsGrams">
+        <member name="P:EMission.Api.Models.DTOs.CarbonInterfaceElectricityEmissionsEstimateResponseDto.CarbonEmissionsGrams">
             <summary>
             An <c>int</c> representing the estimated Carbon emissions in grams (g).
             </summary>
         </member>
         <member name="T:EMission.Api.Models.DTOs.ElectricityEstimateResponseExtensions">
             <summary>
-            Extension class for <see cref="T:EMission.Application.Models.ElectricityEstimateResponse" />.
+            Extension class for <see cref="T:EMission.Application.Models.CarbonInterfaceElectricityEmissionsEstimateResponse" />.
             </summary>
         </member>
-        <member name="M:EMission.Api.Models.DTOs.ElectricityEstimateResponseExtensions.ToElectricityEstimateResponseDto(EMission.Application.Models.ElectricityEstimateResponse)">
+        <member name="M:EMission.Api.Models.DTOs.ElectricityEstimateResponseExtensions.ToCarbonInterfaceElectricityEmissionsEstimateResponseDto(EMission.Application.Models.CarbonInterfaceElectricityEmissionsEstimateResponse)">
             <summary>
-            Transforms an <see cref="T:EMission.Application.Models.ElectricityEstimateResponse" /> from the application layer into an <see cref="T:EMission.Api.Models.DTOs.ElectricityEstimateResponseDto"/> for Web API use.
+            Transforms an <see cref="T:EMission.Application.Models.CarbonInterfaceElectricityEmissionsEstimateResponse" /> from the application layer into an <see cref="T:EMission.Api.Models.DTOs.CarbonInterfaceElectricityEmissionsEstimateResponseDto"/> for Web API use.
             </summary>
-            <param name="response">The <see cref="T:EMission.Application.Models.ElectricityEstimateResponse" /> to be transformed.</param>
-            <returns>The generated <see cref="T:EMission.Api.Models.DTOs.ElectricityEstimateResponseDto"/>.</returns>
+            <param name="dto">The <see cref="T:EMission.Application.Models.CarbonInterfaceElectricityEmissionsEstimateResponse" /> to be transformed.</param>
+            <returns>The generated <see cref="T:EMission.Api.Models.DTOs.CarbonInterfaceElectricityEmissionsEstimateResponseDto"/>.</returns>
         </member>
         <member name="T:EMission.Api.Models.Validators.CountryCodeValidatorAttribute">
             <summary>
@@ -152,6 +174,107 @@
         </member>
         <member name="M:EMission.Api.Models.Validators.RequiredValidatorAttribute.IsValid(System.Object,System.ComponentModel.DataAnnotations.ValidationContext)">
             <inheritdoc/>
+        </member>
+        <member name="T:EMission.Api.PluginConfigurer">
+            <summary>
+            Static class to add <see cref="T:EMission.Api.Interfaces.IPlugin"/> <c>Types</c>. The <see cref="T:EMission.Api.Interfaces.IPlugin"/> services will then be added to the IoC container.
+            </summary>
+        </member>
+        <member name="M:EMission.Api.PluginConfigurer.AddPlugin``1">
+            <summary>
+            Adds an <see cref="T:EMission.Api.Interfaces.IPlugin"/> to added to the IoC container.
+            </summary>
+            <typeparam name="T">The <c>Type</c> of <see cref="T:EMission.Api.Interfaces.IPlugin"/>.</typeparam>
+        </member>
+        <member name="M:EMission.Api.PluginConfigurer.ConfigurePlugins(Microsoft.AspNetCore.Builder.WebApplicationBuilder)">
+            <summary>
+            Adds all configured <see cref="T:EMission.Api.Interfaces.IPlugin"/> services to the IoC container.
+            </summary>
+            <param name="builder"></param>
+        </member>
+        <member name="T:EMission.Api.Plugins.Octopus.Controllers.OctopusElectricityController">
+            <summary>
+            Controller for requesting an Octopus Electricity Carbon Emissions estimate.
+            </summary>
+            <remarks>
+            <b>DISCLAIMER</b>: Does not represent actual carbon emissions.
+            See <see href="https://octopus.energy/renewables/">Octopus website</see> for more information.
+            </remarks>
+        </member>
+        <member name="M:EMission.Api.Plugins.Octopus.Controllers.OctopusElectricityController.#ctor(EMission.Application.Plugins.Octopus.Interfaces.ServiceInterfaces.IOctopusElectricityConsumptionService)">
+            <summary>
+            Creates an instance of <see cref="T:EMission.Api.Plugins.Octopus.Controllers.OctopusElectricityController"/>
+            </summary>
+            <param name="octopusElectricityService"></param>
+        </member>
+        <member name="M:EMission.Api.Plugins.Octopus.Controllers.OctopusElectricityController.GetOctopusElectricityCarbonEmissionsEstimate(EMission.Api.Plugins.Octopus.DTOs.OctopusElectricityConsumptionRequestDto)">
+            <summary>
+            Requests a new carbon emissions estimate over time for Octopus customers.
+            </summary>
+            <param name="requestDto">An <see cref="!:OctopusElectricityEstimateRequestDto" />.</param>
+            <remarks>
+            <b>DISCLAIMER</b>: Does not represent actual carbon emissions.
+            See <see href="https://octopus.energy/renewables/">Octopus website</see> for more information.
+            </remarks>
+            <returns><see cref="T:System.Threading.Tasks.Task"/> with a result of type <see cref="T:Microsoft.AspNetCore.Mvc.IActionResult"/>.</returns>
+        </member>
+        <member name="T:EMission.Api.Plugins.Octopus.DTOs.OctopusElectricityConsumptionRequestDto">
+            <summary>
+            A DTO representing a received request for an Octopus Energy electricity carbon emissions estimate.
+            </summary>
+            <remarks>
+            <b>DISCLAIMER</b>: Does not represent actual carbon emissions.
+            <para>
+            See <see href="https://octopus.energy/renewables/">Octopus website</see> for more information.
+            </para>
+            </remarks>
+        </member>
+        <member name="P:EMission.Api.Plugins.Octopus.DTOs.OctopusElectricityConsumptionRequestDto.APIKey">
+            <summary>
+            Octopus Energy API Key.
+            </summary>
+            <remarks>
+            Obtainable by Octopus customers <see href="https://octopus.energy/dashboard/new/accounts/personal-details/api-access">here</see>.
+            </remarks>
+        </member>
+        <member name="P:EMission.Api.Plugins.Octopus.DTOs.OctopusElectricityConsumptionRequestDto.MPAN">
+            <summary>
+            Electricity Meter Point Administration Number (MPAN).
+            </summary>
+            <remarks>
+            Obtainable by Octopus customers <see href="https://octopus.energy/dashboard/new/accounts/personal-details/api-access">here</see>.
+            </remarks>
+        </member>
+        <member name="P:EMission.Api.Plugins.Octopus.DTOs.OctopusElectricityConsumptionRequestDto.SerialNumber">
+            <summary>
+            Electricity Meter Point Serial Number.
+            </summary>
+            <remarks>
+            Obtainable by Octopus customers <see href="https://octopus.energy/dashboard/new/accounts/personal-details/api-access">here</see>.
+            </remarks>
+        </member>
+        <member name="P:EMission.Api.Plugins.Octopus.DTOs.OctopusElectricityConsumptionRequestDto.Days">
+            <summary>
+            Optional <c>int</c> representing the number of days to process.
+            </summary>
+        </member>
+        <member name="T:EMission.Api.Plugins.Octopus.DTOs.OctopusElectricityEstimateRequestDtoExtensions">
+            <summary>
+            Extension method class for <see cref="!:OctopusElectricityEstimateRequestDto" />.
+            </summary>
+        </member>
+        <member name="M:EMission.Api.Plugins.Octopus.DTOs.OctopusElectricityEstimateRequestDtoExtensions.ToOctopusElectricityEstimateRequest(EMission.Api.Plugins.Octopus.DTOs.OctopusElectricityConsumptionRequestDto)">
+            <summary>
+            Transforms an <see cref="!:OctopusElectricityEstimateRequestDto" /> into an <see cref="!:OctopusElectricityEstimateRequest"/> for consumption by the application layer.
+            </summary>
+            <param name="dto">The <see cref="!:OctopusElectricityEstimateRequestDto" /> to be transformed.</param>
+            <returns>The generated <see cref="!:OctopusElectricityEstimateRequest"/>.</returns>
+        </member>
+        <member name="T:EMission.Api.Plugins.Octopus.OctopusPlugin">
+            <inheritdoc cref="T:EMission.Api.Interfaces.IPlugin"/>
+        </member>
+        <member name="M:EMission.Api.Plugins.Octopus.OctopusPlugin.ConfigureServices(Microsoft.AspNetCore.Builder.WebApplicationBuilder)">
+            <inheritdoc cref="M:EMission.Api.Plugins.Octopus.OctopusPlugin.ConfigureServices(Microsoft.AspNetCore.Builder.WebApplicationBuilder)"/>
         </member>
     </members>
 </doc>

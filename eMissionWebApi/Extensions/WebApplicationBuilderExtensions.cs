@@ -1,8 +1,7 @@
-﻿using EMission.Application.Interfaces.ExternalApiClientInterfaces;
+﻿using EMission.Api.Plugins.Octopus;
+using EMission.Application.Interfaces.ExternalApiClientInterfaces;
 using EMission.Application.Interfaces.ServiceInterfaces;
-using EMission.Application.Interfaces.ServiceInterfaces.OctopusServiceInterfaces;
 using EMission.Application.Services;
-using EMission.Application.Services.Octopus;
 using EMission.Infrastructure.ExternalApiClients;
 
 namespace EMission.Api.Extensions
@@ -18,30 +17,35 @@ namespace EMission.Api.Extensions
 		#endregion
 		internal static WebApplicationBuilder ConfigureServices(this WebApplicationBuilder builder)
 		{
+
 			builder.Services.AddEndpointsApiExplorer();
 			builder.Services.AddSwaggerGen(options =>
 			{
 				options.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, "api.xml"));
 			});
-			builder.AddExternalApiClients();
-
 			builder.Services.AddControllers();
 
-			builder.Services.AddTransient<IElectricityService, ElectricityService>();
-			builder.Services.AddTransient<IElectricityEstimatesApiClient, ElectricityEstimatesApiClient>();
+			builder.AddCarbonInterfaceExternalApiClientFactory();
+			builder.AddGenericHttpClientFactory();
 
-			builder.Services.AddTransient<IOctopusElectricityService, OctopusElectricityService>();
+			builder.Services.AddTransient<ICarbonInterfaceElectricityEmissionsEstimateService, CarbonInterfaceElectricityEmissionsEstimateService>();
+			builder.Services.AddTransient<ICarbonInterfaceExternalApiClient, CarbonInterfaceExternalApiClient>();
+
+			// Add further plugins below
+			PluginConfigurer.AddPlugin<OctopusPlugin>();
+
+			PluginConfigurer.ConfigurePlugins(builder);
 
 			return builder;
 		}
 
 		#region documentation
 		/// <summary>
-		/// Adds all necessary HttpClients to the IoC container for the application's external API calls.
+		/// Adds the Carbon Interface External API Client Factory to the IoC container.
 		/// </summary>
 		/// <exception cref="ApplicationException">Thrown if the <c>CarbonInterfaceApiBaseUri</c> is not present in <c>applicationsettings.json</c>.</exception>
 		#endregion
-		internal static WebApplicationBuilder AddExternalApiClients(this WebApplicationBuilder builder)
+		internal static WebApplicationBuilder AddCarbonInterfaceExternalApiClientFactory(this WebApplicationBuilder builder)
 		{
 			string apiBaseUri = builder.Configuration.GetValue<string>("CarbonInterfaceApiBaseUri")
 				?? throw new ApplicationException("Carbon Interface API Base Uri was not be found in application configuration.");
@@ -53,6 +57,21 @@ namespace EMission.Api.Extensions
 			{
 				client.BaseAddress = new Uri(apiBaseUri);
 				client.DefaultRequestHeaders.Add("Authorization", $"Bearer {apiKey}");
+				client.Timeout = TimeSpan.FromSeconds(30);
+			});
+
+			return builder;
+		}
+
+		#region documentation
+		/// <summary>
+		/// Adds Generic Http Client Factory for open configuration to the IoC container.
+		/// </summary>
+		#endregion
+		internal static WebApplicationBuilder AddGenericHttpClientFactory(this WebApplicationBuilder builder)
+		{
+			builder.Services.AddHttpClient("Generic", client =>
+			{
 				client.Timeout = TimeSpan.FromSeconds(30);
 			});
 

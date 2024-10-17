@@ -1,8 +1,9 @@
 ﻿using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using EMission.Api.Models.Validators;
+using EMission.Application.Plugins.Octopus.Models;
 
-namespace EMission.Api.Models.OctopusModels.DTOs
+namespace EMission.Api.Plugins.Octopus.DTOs
 {
 	#region documentation
 	/// <summary>
@@ -15,7 +16,7 @@ namespace EMission.Api.Models.OctopusModels.DTOs
 	/// </para>
 	/// </remarks>
 	#endregion
-	public class OctopusElectricityEstimateRequestDto
+	public class OctopusElectricityConsumptionRequestDto
 	{
 		#region documentation
 		/// <summary>
@@ -79,7 +80,7 @@ namespace EMission.Api.Models.OctopusModels.DTOs
 		/// <param name="dto">The <see cref="OctopusElectricityEstimateRequestDto" /> to be transformed.</param>
 		/// <returns>The generated <see cref="OctopusElectricityEstimateRequest"/>.</returns>
 		#endregion
-		internal static OctopusElectricityEstimateRequest ToOctopusElectricityEstimateRequest(this OctopusElectricityEstimateRequestDto dto) => new()
+		internal static OctopusElectricityConsumptionRequest ToOctopusElectricityEstimateRequest(this OctopusElectricityConsumptionRequestDto dto) => new()
 		{
 			APIKey = dto.APIKey,
 			MPAN = int.Parse(dto.MPAN),

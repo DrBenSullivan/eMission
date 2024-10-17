@@ -8,7 +8,7 @@ namespace EMission.Api.Models.DTOs
 	/// A DTO representing a dto to a request for an electricity carbon emissions estimate.
 	/// </summary>
 	#endregion
-	public class ElectricityEstimateResponseDto
+	public class CarbonInterfaceElectricityEmissionsEstimateResponseDto
 	{
 		#region documentation
 		/// <summary>
@@ -48,19 +48,19 @@ namespace EMission.Api.Models.DTOs
 
 	#region documentation
 	/// <summary>
-	/// Extension class for <see cref="ElectricityEstimateResponse" />.
+	/// Extension class for <see cref="CarbonInterfaceElectricityEmissionsEstimateResponse" />.
 	/// </summary>
 	#endregion
 	public static class ElectricityEstimateResponseExtensions
 	{
 		#region documentation
 		/// <summary>
-		/// Transforms an <see cref="ElectricityEstimateResponse" /> from the application layer into an <see cref="ElectricityEstimateResponseDto"/> for Web API use.
+		/// Transforms an <see cref="CarbonInterfaceElectricityEmissionsEstimateResponse" /> from the application layer into an <see cref="CarbonInterfaceElectricityEmissionsEstimateResponseDto"/> for Web API use.
 		/// </summary>
-		/// <param name="dto">The <see cref="ElectricityEstimateResponse" /> to be transformed.</param>
-		/// <returns>The generated <see cref="ElectricityEstimateResponseDto"/>.</returns>
+		/// <param name="dto">The <see cref="CarbonInterfaceElectricityEmissionsEstimateResponse" /> to be transformed.</param>
+		/// <returns>The generated <see cref="CarbonInterfaceElectricityEmissionsEstimateResponseDto"/>.</returns>
 		#endregion
-		public static ElectricityEstimateResponseDto ToElectricityEstimateResponseDto(this ElectricityEstimateResponse dto) => new()
+		public static CarbonInterfaceElectricityEmissionsEstimateResponseDto ToCarbonInterfaceElectricityEmissionsEstimateResponseDto(this CarbonInterfaceElectricityEmissionsEstimateResponse dto) => new()
 		{
 			ElectricalUnits = dto.ElectricityUnit.ToString(),
 			ElectricityValue = dto.ElectricityValue,
