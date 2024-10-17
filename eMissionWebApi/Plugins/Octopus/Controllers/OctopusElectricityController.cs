@@ -14,12 +14,12 @@ namespace EMission.Api.Plugins.Octopus.Controllers
 	/// See <see href="https://octopus.energy/renewables/">Octopus website</see> for more information.
 	/// </remarks>
 	#endregion
-	[Route("api/octopus/[controller]")]
+	[Route("api/octopus")]
 	[ApiController]
 	public class OctopusElectricityController : ControllerBase
 	{
 		#region private readonly fields
-		private readonly IOctopusElectricityConsumptionService _octopusElectricityService;
+		private readonly IOctopusElectricityConsumptionService _octopusElectricityConsumptionService;
 		#endregion
 
 		#region constructor
@@ -29,7 +29,7 @@ namespace EMission.Api.Plugins.Octopus.Controllers
 		/// <param name="octopusElectricityService"></param>
 		public OctopusElectricityController(IOctopusElectricityConsumptionService octopusElectricityService)
 		{
-			_octopusElectricityService = octopusElectricityService;
+			_octopusElectricityConsumptionService = octopusElectricityService;
 		}
 		#endregion
 
@@ -57,7 +57,7 @@ namespace EMission.Api.Plugins.Octopus.Controllers
 			}
 
 			var request = requestDto.ToOctopusElectricityEstimateRequest();
-			OctopusElectricityConsumptionResponse response = await _octopusElectricityService.GetHourlyElectricityConsumptionAsync(request);
+			OctopusElectricityConsumptionResponse response = await _octopusElectricityConsumptionService.GetHourlyElectricityConsumptionAsync(request);
 			
 			throw new NotImplementedException();
 		}

@@ -40,7 +40,7 @@ namespace EMission.Api.Plugins.Octopus.DTOs
 		#endregion
 		[DisplayName("'Meter Point Administration Number'")]
 		[RequiredValidator]
-		[RegularExpression("^[0-9]{9}$", ErrorMessage = "")]
+		[RegularExpression("^[0-9]{13}$")]
 		public string MPAN { get; set; } = string.Empty;
 
 		#region documentation
@@ -83,7 +83,7 @@ namespace EMission.Api.Plugins.Octopus.DTOs
 		internal static OctopusElectricityConsumptionRequest ToOctopusElectricityEstimateRequest(this OctopusElectricityConsumptionRequestDto dto) => new()
 		{
 			APIKey = dto.APIKey,
-			MPAN = int.Parse(dto.MPAN),
+			MPAN = dto.MPAN,
 			SerialNumber = dto.SerialNumber,
 			Days = dto.Days
 		};
