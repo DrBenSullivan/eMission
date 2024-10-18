@@ -18,7 +18,7 @@ namespace EMission.Api.Plugins.Octopus.Controllers
 	public class OctopusElectricityController : ControllerBase
 	{
 		#region private readonly fields
-		private readonly IOctopusElectricityConsumptionService _octopusElectricityConsumptionService;
+		private readonly IOctopusElectricityService _octopusElectricityConsumptionService;
 		#endregion
 
 		#region constructor
@@ -26,7 +26,7 @@ namespace EMission.Api.Plugins.Octopus.Controllers
 		/// Creates an instance of <see cref="OctopusElectricityController"/>
 		/// </summary>
 		/// <param name="octopusElectricityService"></param>
-		public OctopusElectricityController(IOctopusElectricityConsumptionService octopusElectricityService)
+		public OctopusElectricityController(IOctopusElectricityService octopusElectricityService)
 		{
 			_octopusElectricityConsumptionService = octopusElectricityService;
 		}
@@ -43,23 +43,71 @@ namespace EMission.Api.Plugins.Octopus.Controllers
 		/// </remarks>
 		/// <returns><see cref="Task"/> with a result of type <see cref="IActionResult"/>.</returns>
 		#endregion
-		[HttpPost]
-		public async Task<IActionResult> GetOctopusElectricityConsumption([Bind] OctopusElectricityConsumptionRequestDto requestDto)
+		[HttpPost("consumption")]
+		public async Task<IActionResult> GetHourlyElectricityConsumption([Bind] OctopusElectricityConsumptionRequestDto requestDto)
 		{
 			if (!ModelState.IsValid)
 			{
-				var errors = ModelState.Values
-						.SelectMany(val => val.Errors)
-						.Select(err => err.ErrorMessage);
-
-				throw new BadHttpRequestException($"Invalid {nameof(OctopusElectricityConsumptionRequestDto)} provided in {nameof(GetOctopusElectricityConsumption)} action method. Validation Errors: {errors}.");
+				BadRequest(ModelState);
 			}
 
 			var request = requestDto.ToOctopusElectricityConsumptionRequest();
 
-			var response = await _octopusElectricityConsumptionService.GetHourlyElectricityConsumptionAsync(request);
+			var response = await _octopusElectricityConsumptionService.GetHourlyConsumptionAsync(request);
 
 			return Ok(response);
+		}
+
+		#region documentation
+		/// <summary>
+		/// Requests hourly estimated carbon emissions from electricity consumption for Octopus customers.
+		/// </summary>
+		/// <param name="requestDto">An <see cref="OctopusElectricityConsumptionRequestDto" />.</param>
+		/// <remarks>
+		/// <b>DISCLAIMER</b>: Does not represent actual carbon emissions.
+		/// See <see href="https://octopus.energy/renewables/">Octopus website</see> for more information.
+		/// </remarks>
+		/// <returns><see cref="Task"/> with a result of type <see cref="IActionResult"/>.</returns>
+		#endregion
+		[HttpPost("emissions")]
+		public async Task<IActionResult> GetHourlyEstimatedCarbonEmissions([Bind] OctopusElectricityConsumptionRequestDto requestDto)
+		{
+			if (!ModelState.IsValid)
+			{
+				BadRequest(ModelState);
+			}
+
+			var request = requestDto.ToOctopusElectricityConsumptionRequest();
+
+			var response = await _octopusElectricityConsumptionService.GetHourlyEmissionsEstimateAsync(request);
+
+			return Ok(response);
+		}
+
+		#region documentation
+		/// <summary>
+		/// Requests hourly electricity consumption graph for Octopus customers.
+		/// </summary>
+		/// <param name="requestDto">An <see cref="OctopusElectricityConsumptionRequestDto" />.</param>
+		/// <remarks>
+		/// <b>DISCLAIMER</b>: Does not represent actual carbon emissions.
+		/// See <see href="https://octopus.energy/renewables/">Octopus website</see> for more information.
+		/// </remarks>
+		/// <returns><see cref="Task"/> with a result of type <see cref="IActionResult"/>.</returns>
+		#endregion
+		[HttpPost("consumption-graph")]
+		public async Task<IActionResult> GetHourlyElectricityConsumptionGraph([Bind] OctopusElectricityConsumptionRequestDto requestDto)
+		{
+			if (!ModelState.IsValid)
+			{
+				BadRequest(ModelState);
+			}
+
+			var request = requestDto.ToOctopusElectricityConsumptionRequest();
+
+			var response = await _octopusElectricityConsumptionService.GetHourlyConsumptionGraphAsync(request);
+
+			return File(response, "image/jpeg");
 		}
 	}
 }

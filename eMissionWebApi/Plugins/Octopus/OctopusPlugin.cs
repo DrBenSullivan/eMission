@@ -12,7 +12,7 @@ namespace EMission.Api.Plugins.Octopus
 		/// <inheritdoc cref="ConfigureServices(WebApplicationBuilder)"/>
 		public void ConfigureServices(WebApplicationBuilder builder)
 		{
-			builder.Services.AddTransient<IOctopusElectricityConsumptionService, OctopusElectricityConsumptionService>();
+			builder.Services.AddTransient<IOctopusElectricityService, OctopusElectricityService>();
 			builder.Services.AddTransient<IOctopusElectricityConsumptionApiClient, OctopusElectricityConsumptionApiClient>();
 		}
 	}
