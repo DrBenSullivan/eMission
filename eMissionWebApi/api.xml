@@ -209,9 +209,9 @@
         </member>
         <member name="M:EMission.Api.Plugins.Octopus.Controllers.OctopusElectricityController.GetOctopusElectricityConsumption(EMission.Api.Plugins.Octopus.DTOs.OctopusElectricityConsumptionRequestDto)">
             <summary>
-            Requests a new carbon emissions estimate over time for Octopus customers.
+            Requests hourly electricity consumption for Octopus customers.
             </summary>
-            <param name="requestDto">An <see cref="!:OctopusElectricityEstimateRequestDto" />.</param>
+            <param name="requestDto">An <see cref="T:EMission.Api.Plugins.Octopus.DTOs.OctopusElectricityConsumptionRequestDto" />.</param>
             <remarks>
             <b>DISCLAIMER</b>: Does not represent actual carbon emissions.
             See <see href="https://octopus.energy/renewables/">Octopus website</see> for more information.

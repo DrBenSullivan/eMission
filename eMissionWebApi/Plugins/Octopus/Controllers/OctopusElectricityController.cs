@@ -1,6 +1,5 @@
 ﻿using EMission.Api.Plugins.Octopus.DTOs;
 using EMission.Application.Plugins.Octopus.Interfaces.ServiceInterfaces;
-using EMission.Application.Plugins.Octopus.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace EMission.Api.Plugins.Octopus.Controllers
@@ -35,9 +34,9 @@ namespace EMission.Api.Plugins.Octopus.Controllers
 
 		#region documentation
 		/// <summary>
-		/// Requests a new carbon emissions estimate over time for Octopus customers.
+		/// Requests hourly electricity consumption for Octopus customers.
 		/// </summary>
-		/// <param name="requestDto">An <see cref="OctopusElectricityEstimateRequestDto" />.</param>
+		/// <param name="requestDto">An <see cref="OctopusElectricityConsumptionRequestDto" />.</param>
 		/// <remarks>
 		/// <b>DISCLAIMER</b>: Does not represent actual carbon emissions.
 		/// See <see href="https://octopus.energy/renewables/">Octopus website</see> for more information.
