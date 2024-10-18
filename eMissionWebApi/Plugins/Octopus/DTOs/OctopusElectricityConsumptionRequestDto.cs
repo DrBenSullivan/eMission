@@ -80,7 +80,7 @@ namespace EMission.Api.Plugins.Octopus.DTOs
 		/// <param name="dto">The <see cref="OctopusElectricityEstimateRequestDto" /> to be transformed.</param>
 		/// <returns>The generated <see cref="OctopusElectricityEstimateRequest"/>.</returns>
 		#endregion
-		internal static OctopusElectricityConsumptionRequest ToOctopusElectricityEstimateRequest(this OctopusElectricityConsumptionRequestDto dto) => new()
+		internal static OctopusElectricityConsumptionRequest ToOctopusElectricityConsumptionRequest(this OctopusElectricityConsumptionRequestDto dto) => new()
 		{
 			APIKey = dto.APIKey,
 			MPAN = dto.MPAN,

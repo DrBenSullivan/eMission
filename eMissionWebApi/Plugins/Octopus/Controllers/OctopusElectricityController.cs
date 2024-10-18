@@ -45,7 +45,7 @@ namespace EMission.Api.Plugins.Octopus.Controllers
 		/// <returns><see cref="Task"/> with a result of type <see cref="IActionResult"/>.</returns>
 		#endregion
 		[HttpPost]
-		public async Task<IActionResult> GetOctopusElectricityCarbonEmissionsEstimate([Bind] OctopusElectricityConsumptionRequestDto requestDto)
+		public async Task<IActionResult> GetOctopusElectricityConsumption([Bind] OctopusElectricityConsumptionRequestDto requestDto)
 		{
 			if (!ModelState.IsValid)
 			{
@@ -53,13 +53,14 @@ namespace EMission.Api.Plugins.Octopus.Controllers
 						.SelectMany(val => val.Errors)
 						.Select(err => err.ErrorMessage);
 
-				throw new BadHttpRequestException($"Invalid {nameof(OctopusElectricityConsumptionRequestDto)} provided in {nameof(GetOctopusElectricityCarbonEmissionsEstimate)} action method. Validation Errors: {errors}.");
+				throw new BadHttpRequestException($"Invalid {nameof(OctopusElectricityConsumptionRequestDto)} provided in {nameof(GetOctopusElectricityConsumption)} action method. Validation Errors: {errors}.");
 			}
 
-			var request = requestDto.ToOctopusElectricityEstimateRequest();
-			OctopusElectricityConsumptionResponse response = await _octopusElectricityConsumptionService.GetHourlyElectricityConsumptionAsync(request);
-			
-			throw new NotImplementedException();
+			var request = requestDto.ToOctopusElectricityConsumptionRequest();
+
+			var response = await _octopusElectricityConsumptionService.GetHourlyElectricityConsumptionAsync(request);
+
+			return Ok(response);
 		}
 	}
 }

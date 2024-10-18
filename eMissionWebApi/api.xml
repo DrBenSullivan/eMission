@@ -207,7 +207,7 @@
             </summary>
             <param name="octopusElectricityService"></param>
         </member>
-        <member name="M:EMission.Api.Plugins.Octopus.Controllers.OctopusElectricityController.GetOctopusElectricityCarbonEmissionsEstimate(EMission.Api.Plugins.Octopus.DTOs.OctopusElectricityConsumptionRequestDto)">
+        <member name="M:EMission.Api.Plugins.Octopus.Controllers.OctopusElectricityController.GetOctopusElectricityConsumption(EMission.Api.Plugins.Octopus.DTOs.OctopusElectricityConsumptionRequestDto)">
             <summary>
             Requests a new carbon emissions estimate over time for Octopus customers.
             </summary>
@@ -263,7 +263,7 @@
             Extension method class for <see cref="!:OctopusElectricityEstimateRequestDto" />.
             </summary>
         </member>
-        <member name="M:EMission.Api.Plugins.Octopus.DTOs.OctopusElectricityEstimateRequestDtoExtensions.ToOctopusElectricityEstimateRequest(EMission.Api.Plugins.Octopus.DTOs.OctopusElectricityConsumptionRequestDto)">
+        <member name="M:EMission.Api.Plugins.Octopus.DTOs.OctopusElectricityEstimateRequestDtoExtensions.ToOctopusElectricityConsumptionRequest(EMission.Api.Plugins.Octopus.DTOs.OctopusElectricityConsumptionRequestDto)">
             <summary>
             Transforms an <see cref="!:OctopusElectricityEstimateRequestDto" /> into an <see cref="!:OctopusElectricityEstimateRequest"/> for consumption by the application layer.
             </summary>
