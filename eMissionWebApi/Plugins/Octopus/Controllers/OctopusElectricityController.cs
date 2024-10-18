@@ -86,7 +86,7 @@ namespace EMission.Api.Plugins.Octopus.Controllers
 
 		#region documentation
 		/// <summary>
-		/// Requests hourly electricity consumption graph for Octopus customers.
+		/// Requests an hourly electricity consumption graph for Octopus customers.
 		/// </summary>
 		/// <param name="requestDto">An <see cref="OctopusElectricityConsumptionRequestDto" />.</param>
 		/// <remarks>
@@ -106,6 +106,32 @@ namespace EMission.Api.Plugins.Octopus.Controllers
 			var request = requestDto.ToOctopusElectricityConsumptionRequest();
 
 			var response = await _octopusElectricityConsumptionService.GetHourlyConsumptionGraphAsync(request);
+
+			return File(response, "image/jpeg");
+		}
+
+		#region documentation
+		/// <summary>
+		/// Requests a graph of estimated hourly carbon emissions bases on electricity consumption \for Octopus customers.
+		/// </summary>
+		/// <param name="requestDto">An <see cref="OctopusElectricityConsumptionRequestDto" />.</param>
+		/// <remarks>
+		/// <b>DISCLAIMER</b>: Does not represent actual carbon emissions.
+		/// See <see href="https://octopus.energy/renewables/">Octopus website</see> for more information.
+		/// </remarks>
+		/// <returns><see cref="Task"/> with a result of type <see cref="IActionResult"/>.</returns>
+		#endregion
+		[HttpPost("emissions-graph")]
+		public async Task<IActionResult> GetHourlyElectricityEmissionsEstimateGraph([Bind] OctopusElectricityConsumptionRequestDto requestDto)
+		{
+			if (!ModelState.IsValid)
+			{
+				BadRequest(ModelState);
+			}
+
+			var request = requestDto.ToOctopusElectricityConsumptionRequest();
+
+			var response = await _octopusElectricityConsumptionService.GetHourlyEmissionsGraphAsync(request);
 
 			return File(response, "image/jpeg");
 		}

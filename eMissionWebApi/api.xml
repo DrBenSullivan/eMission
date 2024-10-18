@@ -231,7 +231,18 @@
         </member>
         <member name="M:EMission.Api.Plugins.Octopus.Controllers.OctopusElectricityController.GetHourlyElectricityConsumptionGraph(EMission.Api.Plugins.Octopus.DTOs.OctopusElectricityConsumptionRequestDto)">
             <summary>
-            Requests hourly electricity consumption graph for Octopus customers.
+            Requests an hourly electricity consumption graph for Octopus customers.
+            </summary>
+            <param name="requestDto">An <see cref="T:EMission.Api.Plugins.Octopus.DTOs.OctopusElectricityConsumptionRequestDto" />.</param>
+            <remarks>
+            <b>DISCLAIMER</b>: Does not represent actual carbon emissions.
+            See <see href="https://octopus.energy/renewables/">Octopus website</see> for more information.
+            </remarks>
+            <returns><see cref="T:System.Threading.Tasks.Task"/> with a result of type <see cref="T:Microsoft.AspNetCore.Mvc.IActionResult"/>.</returns>
+        </member>
+        <member name="M:EMission.Api.Plugins.Octopus.Controllers.OctopusElectricityController.GetHourlyElectricityEmissionsEstimateGraph(EMission.Api.Plugins.Octopus.DTOs.OctopusElectricityConsumptionRequestDto)">
+            <summary>
+            Requests a graph of estimated hourly carbon emissions bases on electricity consumption \for Octopus customers.
             </summary>
             <param name="requestDto">An <see cref="T:EMission.Api.Plugins.Octopus.DTOs.OctopusElectricityConsumptionRequestDto" />.</param>
             <remarks>
