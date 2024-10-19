@@ -10,7 +10,7 @@ namespace EMission.Infrastructure.ExternalApiClients
 	#region documentation
 	/// <inheritdoc />
 	#endregion
-	public class ElectricityEstimatesApiClient : IElectricityEstimatesApiClient
+	public class CarbonInterfaceExternalApiClient : IEmissionsEstimateApiClient
 	{
 		#region private readonly fields
 		private readonly HttpClient _httpClient;
@@ -19,10 +19,10 @@ namespace EMission.Infrastructure.ExternalApiClients
 
 		#region constructor
 		/// <summary>
-		/// Creates a new instance of <see cref="ElectricityEstimatesApiClient" />.
+		/// Creates a new instance of <see cref="CarbonInterfaceExternalApiClient" />.
 		/// </summary>
 		/// <param name="httpClientFactory">Injected dependency.</param>
-		public ElectricityEstimatesApiClient(IHttpClientFactory httpClientFactory)
+		public CarbonInterfaceExternalApiClient(IHttpClientFactory httpClientFactory)
 		{
 			_httpClient = httpClientFactory.CreateClient("CarbonInterfaceApiClient");
 			_endpoint = "estimates";
@@ -32,7 +32,7 @@ namespace EMission.Infrastructure.ExternalApiClients
 		#region documentation
 		/// <inheritdoc />
 		#endregion
-		public async Task<ElectricityEstimateResponse> GetElectricityEstimateAsync(ElectricityEstimateRequest request)
+		public async Task<ElectricityEmissionsEstimateResponse> GetElectricityEmissionsEstimateAsync(ElectricityEmissionsEstimateRequest request)
 		{
 			var requestStringContent = request.ToStringContent();
 			HttpResponseMessage response;
@@ -43,31 +43,31 @@ namespace EMission.Infrastructure.ExternalApiClients
 			}
 			catch (TaskCanceledException ex) when (ex.CancellationToken.IsCancellationRequested)
 			{
-				throw new ElectricityEstimatesApiClientException("The request was cancelled by the user.", ex);
+				throw new ElectricityEmissionsApiClientException("The request was cancelled by the user.", ex);
 			}
 			catch (TaskCanceledException ex)
 			{
-				throw new ElectricityEstimatesApiClientException("The request timed out. Please try again later.", ex);
+				throw new ElectricityEmissionsApiClientException("The request timed out. Please try again later.", ex);
 			}
 			catch (HttpRequestException ex)
 			{
-				throw new ElectricityEstimatesApiClientException("An error occurred while sending the HTTP request.", ex);
+				throw new ElectricityEmissionsApiClientException("An error occurred while sending the HTTP request.", ex);
 			}
 
 			var message = await response.Content.ReadAsStringAsync();
 
 			if (!response.IsSuccessStatusCode)
 			{
-				throw new ElectricityEstimatesApiClientException($"Request failed with status code {response.StatusCode}. Error: {message}");
+				throw new ElectricityEmissionsApiClientException($"Request failed with status code {response.StatusCode}. Error: {message}");
 			}
 
 			var responseMessageJson = JsonDocument.Parse(message);
 			var responseAttributes = responseMessageJson.RootElement.GetProperty("data").GetProperty("attributes");
 
-			var responseDto = JsonSerializer.Deserialize<ElectricityAPIResponseDto>(responseAttributes)
-				?? throw new ElectricityEstimatesApiClientException($"Failed to parse the response from the external API. Response: {message}");
+			var responseDto = JsonSerializer.Deserialize<CarbonInterfaceElectricityEmissionsEstimateApiResponseDto>(responseAttributes)
+				?? throw new ElectricityEmissionsApiClientException($"Failed to parse the response from the external API. Response: {message}");
 
-			return responseDto.ToElectricityEstimateResponse();
+			return responseDto.ToCarbonInterfaceElectricityEmissionsEstimateResponse();
 		}
 	}
 }

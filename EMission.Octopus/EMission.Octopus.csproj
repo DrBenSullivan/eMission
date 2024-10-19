@@ -7,11 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="ScottPlot.Blazor" Version="5.0.40" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\EMission.Domain\EMission.Domain.csproj" />
+    <Folder Include="Octopus.Infrastructure\" />
   </ItemGroup>
 
 </Project>

@@ -4,12 +4,10 @@ using EMission.Domain.Enums;
 
 namespace EMission.Infrastructure.Models
 {
-	public class ElectricityAPIResponseDto
+	public class CarbonInterfaceElectricityEmissionsEstimateApiResponseDto
 	{
 		[JsonPropertyName("country")]
 		public string CountryCode { get; set; } = string.Empty;
-		//[JsonPropertyName("state")]
-		//public required string State { get; set; } = String.Empty;
 		[JsonPropertyName("electricity_unit")]
 		public string ElectricityUnit { get; set; } = string.Empty;
 		[JsonPropertyName("electricity_value")]
@@ -18,21 +16,15 @@ namespace EMission.Infrastructure.Models
 		public DateTime EstimatedAt { get; set; }
 		[JsonPropertyName("carbon_g")]
 		public int CarbonEmissionsGrams { get; set; }
-		//[JsonPropertyName("carbon_lb")]
-		//public required double CarbonLb { get; set; }
-		//[JsonPropertyName("carbon_kg")]
-		//public required double CarbonKg { get; set; }
-		//[JsonPropertyName("carbon_mt")]
-		//public required double CarbonMt { get; set; }
 	}
 
 	public static class ElectricityEstimateApiResponseDtoExtensions
 	{
-		public static ElectricityEstimateResponse ToElectricityEstimateResponse(this ElectricityAPIResponseDto dto)
+		public static ElectricityEmissionsEstimateResponse ToCarbonInterfaceElectricityEmissionsEstimateResponse(this CarbonInterfaceElectricityEmissionsEstimateApiResponseDto dto)
 		{
 			if (Enum.TryParse(typeof(ElectricalUnit), dto.ElectricityUnit, true, out var electricalUnit))
 			{
-				return new ElectricityEstimateResponse()
+				return new ElectricityEmissionsEstimateResponse()
 				{
 					CountryCode = dto.CountryCode,
 					ElectricityUnit = (ElectricalUnit)electricalUnit,
@@ -42,7 +34,7 @@ namespace EMission.Infrastructure.Models
 				};
 			}
 
-			throw new ArgumentException($"Value '{dto.ElectricityUnit}' is invalid for {nameof(ElectricityEstimateResponse.ElectricityUnit)}");
+			throw new ArgumentException($"Value '{dto.ElectricityUnit}' is invalid for {nameof(ElectricityEmissionsEstimateResponse.ElectricityUnit)}");
 		}
 	}
 }
