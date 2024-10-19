@@ -2,21 +2,21 @@
 {
 	#region documentation
 	/// <summary>
-	/// Enum representing acceptable electricity units.
+	/// An Enum representing acceptable electricity units.
 	/// </summary>
 	#endregion
 	public enum ElectricalUnit
 	{
 		#region documentation
 		/// <summary>
-		/// Megawatt-hour (MWh)
+		/// Megawatt-hour (MWh) = 1,000,000 Watts consumed continuously for 1 hour.
 		/// </summary>
 		#endregion
 		MWh,
 
 		#region documentation
 		/// <summary>
-		/// Kilowatt-hour = 1,000 watts for 1 hour.
+		/// Kilowatt-hour (kWh) = 1,000 Watts consumed continuously for 1 hour.
 		/// </summary>
 		#endregion
 		KWh
