@@ -14,7 +14,7 @@ namespace EMission.Api.Controllers
 	public class ElectricityEmissionsController : ControllerBase
 	{
 		#region private readonly fields
-		private readonly ICarbonInterfaceElectricityEmissionsEstimateService _carbonInterfaceElectricityEmissionsEstimateService;
+		private readonly IElectricityEmissionsEstimateService _carbonInterfaceElectricityEmissionsEstimateService;
 		#endregion
 
 		#region constructor
@@ -22,7 +22,7 @@ namespace EMission.Api.Controllers
 		/// Creates an instance of <see cref="ElectricityEmissionsController"/>
 		/// </summary>
 		/// <param name="carbonInterfaceElectricityEmissionsEstimateService"></param>
-		public ElectricityEmissionsController(ICarbonInterfaceElectricityEmissionsEstimateService carbonInterfaceElectricityEmissionsEstimateService)
+		public ElectricityEmissionsController(IElectricityEmissionsEstimateService carbonInterfaceElectricityEmissionsEstimateService)
 		{
 			_carbonInterfaceElectricityEmissionsEstimateService = carbonInterfaceElectricityEmissionsEstimateService;
 		}
@@ -49,7 +49,7 @@ namespace EMission.Api.Controllers
 			}
 
 			var request = requestDto.ToCarbonInterfaceElectricityEmissionsEstimateRequest();
-			var response = await _carbonInterfaceElectricityEmissionsEstimateService.GetCarbonInterfaceElectricityEstimateAsync(request);
+			var response = await _carbonInterfaceElectricityEmissionsEstimateService.GetElectricityEmissionsEstimateAsync(request);
 			var electricityEstimateResponseDto = response.ToCarbonInterfaceElectricityEmissionsEstimateResponseDto();
 			return Ok(electricityEstimateResponseDto);
 		}

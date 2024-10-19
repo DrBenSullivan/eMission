@@ -28,8 +28,8 @@ namespace EMission.Api.Extensions
 			builder.AddCarbonInterfaceExternalApiClientFactory();
 			builder.AddGenericHttpClientFactory();
 
-			builder.Services.AddTransient<ICarbonInterfaceElectricityEmissionsEstimateService, CarbonInterfaceElectricityEmissionsEstimateService>();
-			builder.Services.AddTransient<ICarbonInterfaceExternalApiClient, CarbonInterfaceExternalApiClient>();
+			builder.Services.AddTransient<IElectricityEmissionsEstimateService, EmissionsEstimateService>();
+			builder.Services.AddTransient<IEmissionsEstimateApiClient, CarbonInterfaceExternalApiClient>();
 
 			// Add further plugins below
 			PluginConfigurer.AddPlugin<OctopusPlugin>();

@@ -51,12 +51,12 @@ namespace EMission.Api.Models.DTOs
 	{
 		#region documentation
 		/// <summary>
-		/// Transforms an <see cref="CarbonInterfaceElectricityEmissionsEstimateRequestDto" /> into an <see cref="CarbonInterfaceElectricityEmissionsEstimateRequest"/> for consumption by the application layer.
+		/// Transforms an <see cref="CarbonInterfaceElectricityEmissionsEstimateRequestDto" /> into an <see cref="ElectricityEmissionsEstimateRequest"/> for consumption by the application layer.
 		/// </summary>
 		/// <param name="dto">The <see cref="CarbonInterfaceElectricityEmissionsEstimateRequestDto" /> to be transformed.</param>
-		/// <returns>The generated <see cref="CarbonInterfaceElectricityEmissionsEstimateRequest"/>.</returns>
+		/// <returns>The generated <see cref="ElectricityEmissionsEstimateRequest"/>.</returns>
 		#endregion
-		public static CarbonInterfaceElectricityEmissionsEstimateRequest ToCarbonInterfaceElectricityEmissionsEstimateRequest(this CarbonInterfaceElectricityEmissionsEstimateRequestDto dto) => new()
+		public static ElectricityEmissionsEstimateRequest ToCarbonInterfaceElectricityEmissionsEstimateRequest(this CarbonInterfaceElectricityEmissionsEstimateRequestDto dto) => new()
 		{
 			ElectricalUnits = (ElectricalUnit)Enum.Parse(typeof(ElectricalUnit), dto.ElectricalUnits, true),
 			TotalUnits = dto.ElectricityValue,
