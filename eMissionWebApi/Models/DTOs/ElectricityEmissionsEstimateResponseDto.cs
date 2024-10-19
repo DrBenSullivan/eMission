@@ -5,10 +5,10 @@ namespace EMission.Api.Models.DTOs
 {
 	#region documentation
 	/// <summary>
-	/// A DTO representing a dto to a request for an electricity carbon emissions estimate.
+	/// A <c>DTO</c> representing a response to an electricity carbon emissions estimate request.
 	/// </summary>
 	#endregion
-	public class CarbonInterfaceElectricityEmissionsEstimateResponseDto
+	public class ElectricityEmissionsEstimateResponseDto
 	{
 		#region documentation
 		/// <summary>
@@ -19,14 +19,17 @@ namespace EMission.Api.Models.DTOs
 
 		#region documentation
 		/// <summary>
-		/// A <c>double</c> representing the number of <see cref="ElectricalUnits"/> used.
+		/// A <c>double</c> representing the number of <c>ElectricalUnits</c> used.
 		/// </summary>
 		#endregion
 		public double ElectricityValue { get; set; }
 
 		#region documentation
 		/// <summary>
-		/// A two-letter ISO country code representing the country that the request is pertinent to.
+		/// A two-letter ISO country code representing the country that the request is relevant to.
+		/// <para>
+		/// Acceptable codes available in <c>~/Emissions.Domain/Assets/IsoCountryCodes.json</c>.
+		/// </para>
 		/// </summary>
 		#endregion
 		public string CountryCode { get; set; } = string.Empty;
@@ -40,7 +43,7 @@ namespace EMission.Api.Models.DTOs
 
 		#region documentation
 		/// <summary>
-		/// An <c>int</c> representing the estimated Carbon emissions in grams (g).
+		/// An <c>int</c> representing the estimated Carbon Emissions in Grams (g).
 		/// </summary>
 		#endregion
 		public int CarbonEmissionsGrams { get; set; }
@@ -55,12 +58,12 @@ namespace EMission.Api.Models.DTOs
 	{
 		#region documentation
 		/// <summary>
-		/// Transforms an <see cref="ElectricityEmissionsEstimateResponse" /> from the application layer into an <see cref="CarbonInterfaceElectricityEmissionsEstimateResponseDto"/> for Web API use.
+		/// Maps an <see cref="ElectricityEmissionsEstimateResponse" /> from the application layer into an <see cref="ElectricityEmissionsEstimateResponseDto"/> for API layer consumption.
 		/// </summary>
-		/// <param name="dto">The <see cref="ElectricityEmissionsEstimateResponse" /> to be transformed.</param>
-		/// <returns>The generated <see cref="CarbonInterfaceElectricityEmissionsEstimateResponseDto"/>.</returns>
+		/// <param name="dto">The <see cref="ElectricityEmissionsEstimateResponse" /> to be mapped.</param>
+		/// <returns>The mapped <see cref="ElectricityEmissionsEstimateResponseDto"/>.</returns>
 		#endregion
-		public static CarbonInterfaceElectricityEmissionsEstimateResponseDto ToCarbonInterfaceElectricityEmissionsEstimateResponseDto(this ElectricityEmissionsEstimateResponse dto) => new()
+		public static ElectricityEmissionsEstimateResponseDto ToElectricityEmissionsEstimateResponseDto(this ElectricityEmissionsEstimateResponse dto) => new()
 		{
 			ElectricalUnits = dto.ElectricityUnit.ToString(),
 			ElectricityValue = dto.ElectricityValue,

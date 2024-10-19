@@ -1,4 +1,5 @@
-﻿using EMission.Api.Interfaces;
+﻿using System.Reflection;
+using EMission.Api.Interfaces;
 
 namespace EMission.Api
 {
@@ -13,27 +14,31 @@ namespace EMission.Api
 
 		#region documentation
 		/// <summary>
-		/// Adds an <see cref="IPlugin"/> to added to the IoC container.
+		/// Scans the assembly for types that implement <see cref="IPlugin"/> and adds them to the IoC container.
 		/// </summary>
-		/// <typeparam name="T">The <c>Type</c> of <see cref="IPlugin"/>.</typeparam>
-		#endregion
-		public static void AddPlugin<T>() where T : IPlugin
-		{
-			var plugin = Activator.CreateInstance<T>();
-			_plugins.Add(plugin);
-		}
-
-		#region documentation
-		/// <summary>
-		/// Adds all configured <see cref="IPlugin"/> services to the IoC container.
-		/// </summary>
-		/// <param name="builder"></param>
+		/// <param name="builder">The Web Application Builder to add the plugins to as services.</param>
 		#endregion
 		internal static void ConfigurePlugins(WebApplicationBuilder builder)
 		{
-			foreach (var plugin in _plugins)
+			var pluginTypes = Assembly.GetExecutingAssembly()
+				.GetTypes()
+				.Where(t => typeof(IPlugin).IsAssignableFrom(t) && !t.IsInterface && !t.IsAbstract);
+
+
+			if (pluginTypes.Any())
 			{
-				plugin.ConfigureServices(builder);
+				foreach (var type in pluginTypes)
+				{
+					if (Activator.CreateInstance(type) is IPlugin plugin)
+					{
+						_plugins.Add(plugin);
+					}
+				}
+
+				foreach (var plugin in _plugins)
+				{
+					plugin.ConfigureServices(builder);
+				}
 			}
 		}
 	}

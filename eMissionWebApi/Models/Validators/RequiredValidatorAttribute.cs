@@ -11,7 +11,10 @@ namespace EMission.Api.Models.Validators
 	{
 
 		#region documentation
-		/// <inheritdoc/>
+		/// <summary>
+		/// Specifies that a field is required.
+		/// </summary>
+		/// <returns><c>true</c> if the value is valid; otherwise, <c>false</c>.</returns>
 		#endregion
 		protected override ValidationResult? IsValid(object? value, ValidationContext validationContext)
 		{

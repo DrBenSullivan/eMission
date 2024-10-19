@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using EMission.Api.Interfaces;
 using EMission.Api.Models.Validators;
 using EMission.Application.Plugins.Octopus.Models;
 
@@ -7,7 +8,7 @@ namespace EMission.Api.Plugins.Octopus.DTOs
 {
 	#region documentation
 	/// <summary>
-	/// A DTO representing a received request for an Octopus Energy electricity carbon emissions estimate.
+	/// A <c>DTO</c> representing a received request for an Octopus Energy electricity carbon emissions estimate.
 	/// </summary>
 	/// <remarks>
 	/// <b>DISCLAIMER</b>: Does not represent actual carbon emissions.
@@ -16,7 +17,7 @@ namespace EMission.Api.Plugins.Octopus.DTOs
 	/// </para>
 	/// </remarks>
 	#endregion
-	public class OctopusElectricityConsumptionRequestDto
+	public class OctopusElectricityConsumptionRequestDto : IElectricityConsumptionRequestDto
 	{
 		#region documentation
 		/// <summary>
@@ -68,17 +69,17 @@ namespace EMission.Api.Plugins.Octopus.DTOs
 
 	#region documentation
 	/// <summary>
-	/// Extension method class for <see cref="OctopusElectricityEstimateRequestDto" />.
+	/// Extension method class for <see cref="OctopusElectricityConsumptionRequestDto" />.
 	/// </summary>
 	#endregion
 	public static class OctopusElectricityEstimateRequestDtoExtensions
 	{
 		#region documentation
 		/// <summary>
-		/// Transforms an <see cref="OctopusElectricityEstimateRequestDto" /> into an <see cref="OctopusElectricityEstimateRequest"/> for consumption by the application layer.
+		/// Transforms an <see cref="OctopusElectricityConsumptionRequestDto" /> into an <see cref="OctopusElectricityConsumptionRequest"/> for consumption by the application layer.
 		/// </summary>
-		/// <param name="dto">The <see cref="OctopusElectricityEstimateRequestDto" /> to be transformed.</param>
-		/// <returns>The generated <see cref="OctopusElectricityEstimateRequest"/>.</returns>
+		/// <param name="dto">The <see cref="OctopusElectricityConsumptionRequestDto" /> to be transformed.</param>
+		/// <returns>The generated <see cref="OctopusElectricityConsumptionRequest"/>.</returns>
 		#endregion
 		internal static OctopusElectricityConsumptionRequest ToOctopusElectricityConsumptionRequest(this OctopusElectricityConsumptionRequestDto dto) => new()
 		{

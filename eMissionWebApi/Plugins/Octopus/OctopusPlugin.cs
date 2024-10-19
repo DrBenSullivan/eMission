@@ -6,10 +6,22 @@ using EMission.Infrastructure.Plugins.Octopus.ExternalApiClients;
 
 namespace EMission.Api.Plugins.Octopus
 {
-	/// <inheritdoc cref="IPlugin"/>
+	#region documentation 
+	/// <summary>
+	/// A class to be found by <see cref="PluginConfigurer"/> to add necessary services to the IoC container.
+	/// </summary>
+	#endregion
 	public class OctopusPlugin : IPlugin
 	{
-		/// <inheritdoc cref="ConfigureServices(WebApplicationBuilder)"/>
+		#region documentation
+		/// <summary>
+		/// Adds necessary services to the IoC container.
+		/// <para>
+		/// This is automatically called by <see cref="PluginConfigurer"/> during application startup.
+		/// </para>
+		/// </summary>
+		/// <param name="builder"></param>
+		#endregion
 		public void ConfigureServices(WebApplicationBuilder builder)
 		{
 			builder.Services.AddTransient<IOctopusElectricityService, OctopusElectricityService>();

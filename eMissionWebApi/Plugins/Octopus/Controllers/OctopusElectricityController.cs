@@ -1,4 +1,5 @@
-﻿using EMission.Api.Plugins.Octopus.DTOs;
+﻿using EMission.Api.Interfaces;
+using EMission.Api.Plugins.Octopus.DTOs;
 using EMission.Application.Plugins.Octopus.Interfaces.ServiceInterfaces;
 using Microsoft.AspNetCore.Mvc;
 
@@ -6,16 +7,16 @@ namespace EMission.Api.Plugins.Octopus.Controllers
 {
 	#region documentation
 	/// <summary>
-	/// Controller for requesting an Octopus Electricity Carbon Emissions estimate.
+	/// Controller for requesting Octopus Electricity consumption and carbon emissions estimates.
 	/// </summary>
 	/// <remarks>
 	/// <b>DISCLAIMER</b>: Does not represent actual carbon emissions.
-	/// See <see href="https://octopus.energy/renewables/">Octopus website</see> for more information.
+	/// See the <see href="https://octopus.energy/renewables/">Octopus website</see> for more information.
 	/// </remarks>
 	#endregion
 	[Route("api/octopus")]
 	[ApiController]
-	public class OctopusElectricityController : ControllerBase
+	public class OctopusElectricityController : ControllerBase, IElectricityController<OctopusElectricityConsumptionRequestDto>
 	{
 		#region private readonly fields
 		private readonly IOctopusElectricityService _octopusElectricityConsumptionService;

@@ -4,7 +4,7 @@ namespace EMission.Api.Interfaces
 {
 	#region documentation
 	/// <summary>
-	/// Interface to assist in independent development of Plugins for other Energy Providers.
+	/// Interface to assist to be implemented by Plugins developed for individual Energy Providers.
 	/// <para>
 	/// See <see cref="OctopusPlugin"/> for implementation.
 	/// </para>
@@ -14,7 +14,7 @@ namespace EMission.Api.Interfaces
 	{
 		#region documentation
 		/// <summary>
-		/// Adds Plugin services to the IoC container.
+		/// Scans the assembly for Plugins implementing <see cref="IPlugin"/> whose services are to be added to the IoC container.
 		/// <para>
 		/// See <see cref="OctopusPlugin" /> for implementation.
 		/// </para>
