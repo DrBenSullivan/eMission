@@ -4,9 +4,9 @@ namespace EMission.Api.Models.Validators
 {
 	#region documentation
 	/// <summary>
-	/// Specifies that a field is required and exists as a value in the given enum.
+	/// Specifies that a field is required and must be a valid value of the given enum type.
 	/// </summary>
-	/// <exception cref="ArgumentException">Thrown if the provided object is not an enum.</exception>
+	/// <exception cref="ArgumentException">Thrown if the provided object is not a type of enum.</exception>
 	#endregion
 	public class EnumValidatorAttribute : ValidationAttribute
 	{
@@ -17,7 +17,7 @@ namespace EMission.Api.Models.Validators
 		/// Creates a new instance of the <see cref="EnumValidatorAttribute"/> class.
 		/// </summary>
 		/// <param name="enumType">The type of enum expected.</param>
-		/// <exception cref="ArgumentException">Thrown if the object provided is not an enum.</exception>
+		/// <exception cref="ArgumentException">Thrown if the object provided is not a type of enum.</exception>
 		#endregion
 		public EnumValidatorAttribute(Type enumType)
 		{
@@ -30,7 +30,10 @@ namespace EMission.Api.Models.Validators
 		}
 
 		#region documentation
-		/// <inheritdoc/>
+		/// <summary>
+		/// Specifies that a field is required and must be a valid value of the given enum type.
+		/// </summary>
+		/// <returns><c>true</c> if the value is valid; otherwise, <c>false</c>.</returns>
 		#endregion
 		protected override ValidationResult? IsValid(object? value, ValidationContext validationContext)
 		{

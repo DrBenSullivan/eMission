@@ -7,7 +7,7 @@ namespace EMission.Domain.Entities
 	/// A core entity representing an electricity request.
 	/// </summary>
 	#endregion
-	public class ElectricityEstimate
+	public class ElectricityCarbonEstimate
 	{
 		#region documentation
 		/// <summary>
@@ -19,7 +19,10 @@ namespace EMission.Domain.Entities
 
 		#region documentation
 		/// <summary>
-		/// An two-letter ISO country code representing the country the estimate is pertinent to.
+		/// A string representing the 2-letter ISO Country Code that the request is relevant to.
+		/// <para>
+		/// Acceptable codes available in <c>~/Emissions.Domain/Assets/IsoCountryCodes.json</c>.
+		/// </para>
 		/// </summary>
 		#endregion
 		[Required]
@@ -31,11 +34,11 @@ namespace EMission.Domain.Entities
 		/// </summary>
 		#endregion
 		[Required]
-		public double ElectricityValueKwh { get; set; }
+		public double ElectricityConsumptionKwh { get; set; }
 
 		#region documentation
 		/// <summary>
-		/// The date the estimate was requested at.
+		/// A <see cref="DateTime"/> representing when the request was processed.
 		/// </summary>
 		#endregion
 		[Required]

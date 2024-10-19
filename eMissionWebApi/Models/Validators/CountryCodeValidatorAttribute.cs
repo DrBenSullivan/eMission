@@ -6,10 +6,13 @@ namespace EMission.Api.Models.Validators
 {
 	#region documentation
 	/// <summary>
-	/// Specifies that a field cannot be <c>null</c> or empty <c>string</c>, contains exactly 2 alphabetic characters, 
-	/// and exists within the list of ISO country codes from <c>IsoCountryCodes.json</c>.
+	/// Specifies that a field must be a valid ISO country code.
+	/// <para>
+	/// This is a 3-part process: A <c>NullOrEmpty</c> check, a check that the variable is 2 alphabetic characters, 
+	/// and exists within the list of ISO country codes in <c>~/EMission.Domain/Assets/IsoCountryCodes.json</c>.
+	/// </para>
 	/// </summary>
-	/// <exception cref="ApplicationException">Thrown on application start up if the ISO country codes file could not be found or read.</exception>
+	/// <exception cref="ApplicationException">Thrown if <c>~/EMission.Domain/Assets/IsoCountryCodes.json</c> cannot be found or read on application startup.</exception>
 	#endregion
 	public class CountryCodeValidatorAttribute : ValidationAttribute
 	{
@@ -30,7 +33,14 @@ namespace EMission.Api.Models.Validators
 		}
 
 		#region documentation
-		/// <inheritdoc/>
+		/// <summary>
+		/// Specifies that a field must be a valid ISO country code.
+		/// <para>
+		/// This is a 3-part process: A <c>NullOrEmpty</c> check, a check that the variable is 2 alphabetic characters, 
+		/// and exists within the list of ISO country codes in <c>~/EMission.Domain/Assets/IsoCountryCodes.json</c>.
+		/// </para>
+		/// </summary>
+		/// <returns><c>true</c> if the value is valid; otherwise, <c>false</c>.</returns>
 		#endregion
 		protected override ValidationResult? IsValid(object? value, ValidationContext validationContext)
 		{
