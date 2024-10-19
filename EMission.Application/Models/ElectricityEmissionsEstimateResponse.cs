@@ -6,7 +6,7 @@ namespace EMission.Application.Models
 	/// <summary>
 	/// An object used to respond to a carbon emission estimate request.
 	/// </summary>
-	#endregion	
+	#endregion
 	public class ElectricityEmissionsEstimateResponse
 	{
 		#region documentation

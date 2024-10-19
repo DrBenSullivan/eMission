@@ -40,6 +40,10 @@ namespace EMission.Infrastructure.Plugins.Octopus.ExternalApiClients
 		}
 		#endregion
 
+		#region documentation
+		/// <inheritdoc/>
+		/// <exception cref="OctopusElectricityConsumptionApiClientException"></exception>
+		#endregion
 		public async Task<List<HourlyElectricityConsumptionKwh>> GetHourlyElectricityConsumptionKwhAsync(OctopusElectricityConsumptionRequest request)
 		{
 			var hours = request.Days * 24;

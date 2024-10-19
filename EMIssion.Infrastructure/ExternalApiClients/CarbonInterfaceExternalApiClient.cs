@@ -8,7 +8,9 @@ using EMission.Infrastructure.Models;
 namespace EMission.Infrastructure.ExternalApiClients
 {
 	#region documentation
-	/// <inheritdoc />
+	/// <summary>
+	/// A class representing an External API client for estimating carbon emissions by implementing <see cref="IEmissionsEstimateApiClient"/>.
+	/// </summary>
 	#endregion
 	public class CarbonInterfaceExternalApiClient : IEmissionsEstimateApiClient
 	{
@@ -64,7 +66,7 @@ namespace EMission.Infrastructure.ExternalApiClients
 			var responseMessageJson = JsonDocument.Parse(message);
 			var responseAttributes = responseMessageJson.RootElement.GetProperty("data").GetProperty("attributes");
 
-			var responseDto = JsonSerializer.Deserialize<CarbonInterfaceElectricityEmissionsEstimateApiResponseDto>(responseAttributes)
+			var responseDto = JsonSerializer.Deserialize<ElectricityEmissionsEstimateApiResponseDto>(responseAttributes)
 				?? throw new ElectricityEmissionsApiClientException($"Failed to parse the response from the external API. Response: {message}");
 
 			return responseDto.ToCarbonInterfaceElectricityEmissionsEstimateResponse();
