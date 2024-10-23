@@ -1,7 +1,12 @@
 ﻿using EMission.Application.Interfaces.ExternalApiClientInterfaces;
 using EMission.Application.Interfaces.ServiceInterfaces;
 using EMission.Application.Services;
+using EMission.Domain.Entities.Identity;
+using EMission.Infrastructure.DbContext;
 using EMission.Infrastructure.ExternalApiClients;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 
 namespace EMission.Api.Extensions
 {
@@ -28,14 +33,24 @@ namespace EMission.Api.Extensions
 				options.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, "api.xml"));
 			});
 
+			builder.Services.AddDbContext<ApplicationDbContext>( options =>
+			{
+				options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
+			});
+
+			builder.Services
+				.AddIdentity<ApplicationUser, ApplicationRole>()
+				.AddEntityFrameworkStores<ApplicationDbContext>()
+				.AddDefaultTokenProviders()
+				.AddUserStore<UserStore<ApplicationUser, ApplicationRole, ApplicationDbContext, Guid>>()
+				.AddRoleStore<RoleStore<ApplicationRole, ApplicationDbContext, Guid>>();
+
 			builder.Services.AddControllers();
 
 			builder.AddCarbonInterfaceApiHttpClientFactory();
 			builder.AddGenericHttpClientFactory();
-
 			builder.Services.AddTransient<IElectricityEmissionsEstimateService, EmissionsEstimateService>();
 			builder.Services.AddTransient<IEmissionsEstimateApiClient, CarbonInterfaceExternalApiClient>();
-
 			PluginConfigurer.ConfigurePlugins(builder);
 
 			return builder;

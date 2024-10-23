@@ -69,7 +69,7 @@ namespace EMission.Infrastructure.ExternalApiClients
 			var responseDto = JsonSerializer.Deserialize<ElectricityEmissionsEstimateApiResponseDto>(responseAttributes)
 				?? throw new ElectricityEmissionsApiClientException($"Failed to parse the response from the external API. Response: {message}");
 
-			return responseDto.ToCarbonInterfaceElectricityEmissionsEstimateResponse();
+			return responseDto.ToElectricityEmissionsEstimateResponse();
 		}
 	}
 }

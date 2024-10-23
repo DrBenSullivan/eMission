@@ -384,10 +384,18 @@
             <returns>The generated <see cref="T:EMission.Application.Plugins.Octopus.Models.OctopusElectricityConsumptionRequest"/>.</returns>
         </member>
         <member name="T:EMission.Api.Plugins.Octopus.OctopusPlugin">
-            <inheritdoc cref="T:EMission.Api.Interfaces.IPlugin"/>
+            <summary>
+            A class to be found by <see cref="T:EMission.Api.PluginConfigurer"/> to add necessary services to the IoC container.
+            </summary>
         </member>
         <member name="M:EMission.Api.Plugins.Octopus.OctopusPlugin.ConfigureServices(Microsoft.AspNetCore.Builder.WebApplicationBuilder)">
-            <inheritdoc cref="M:EMission.Api.Plugins.Octopus.OctopusPlugin.ConfigureServices(Microsoft.AspNetCore.Builder.WebApplicationBuilder)"/>
+            <summary>
+            Adds necessary services to the IoC container.
+            <para>
+            This is automatically called by <see cref="T:EMission.Api.PluginConfigurer"/> during application startup.
+            </para>
+            </summary>
+            <param name="builder"></param>
         </member>
     </members>
 </doc>
