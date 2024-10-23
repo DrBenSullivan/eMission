@@ -6,6 +6,11 @@ namespace EMission.Infrastructure.DbContext
 {
 	public class ApplicationDbContext : IdentityDbContext<ApplicationUser, ApplicationRole, Guid>
 	{
-		public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options) { }	
+		public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options) { }
+
+		protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+		{
+			optionsBuilder.UseSqlServer("DefaultConnection");
+		}
 	}
 }
