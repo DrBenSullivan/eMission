@@ -13,6 +13,7 @@ namespace EMission.Api.Models.Validators
 		#region documentation
 		/// <summary>
 		/// Specifies that a field is required and must be of type <c>double</c>, <c>int</c> or <c>decimal</c> with a value greater than 0.
+		/// </summary>
 		/// <returns><c>true</c> if the value is valid; otherwise, <c>false</c>.</returns>
 		#endregion
 

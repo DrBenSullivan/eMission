@@ -86,12 +86,13 @@ namespace EMission.Infrastructure.Plugins.Octopus.ExternalApiClients
 
 				try
 				{
-					var consumption = JsonConvert.DeserializeObject<List<OctopusElectricityConsumptionElement>>(resultsElement.ToString())
+					var resultsString = resultsElement.ToString();
+					var consumption = JsonConvert.DeserializeObject<List<OctopusElectricityConsumptionElement>>(resultsString)
 						.Select(e => e.ToElectricityConsumptionKilowattsPerHour())
 						.ToList();
 
 					return consumption
-						?? throw new OctopusElectricityConsumptionApiClientException($"Failed to deserialize the API response. Response: {resultsElement.ToString()}");
+						?? throw new OctopusElectricityConsumptionApiClientException($"Failed to deserialize the API response. Response: {resultsElement}");
 
 				}
 				catch (Exception ex)
@@ -100,7 +101,7 @@ namespace EMission.Infrastructure.Plugins.Octopus.ExternalApiClients
 				}
 			}
 
-			throw new OctopusElectricityConsumptionApiClientException($"The expected 'results' property in the API response is missing or not an array. ResultsElement: {resultsElement.ToString()}");
+			throw new OctopusElectricityConsumptionApiClientException($"The expected 'results' property in the API response is missing or not an array. ResultsElement: {resultsElement}");
 		}
 
 	}
